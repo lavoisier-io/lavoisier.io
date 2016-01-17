@@ -1,0 +1,176 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.lavoisier.io" xmlns="http://www.lavoisier.io">
+
+    <xs:element name="channel">
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>
+                    A channel is the basic building block of Lavoisier.io. It represents how Lavoisier.io connects to
+                    various applications, web services, and iot objects.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Name of the Channel. It should be unique among all existing channels.
+                            Used as a message key to get the name of the channel in user's locale.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="description" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Message key of the description of the Channel.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="globalActivationParameters" type="parameters">
+                    <xs:annotation>
+                        <xs:documentation>
+                            List of parameters required for channel global activation. After its global
+                            activation, the channel will be available for users activation.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="userActivationParameters" type="parameters">
+                    <xs:annotation>
+                        <xs:documentation>
+                            List of parameters required for channel user activation. After its user
+                            activation, the channel will be available for use in reactions.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="triggers" type="triggers">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The list of triggers exposed by this channel.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="actions" type="actions">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The list of actions exposed by this channel.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="trigger">
+        <xs:annotation>
+            <xs:documentation>
+                A trigger is an external event watched by a channel.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the Trigger. It should be unique among all channel's triggers.
+                        Used as a message key to get the name of the trigger in user's locale.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Message key of the description of the Trigger.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="input" type="parameters">
+                <xs:annotation>
+                    <xs:documentation>
+                        Input parameters required for this trigger execution.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="output" type="variables">
+                <xs:annotation>
+                    <xs:documentation>
+                        Output variables produced by this trigger.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="triggers">
+        <xs:sequence>
+            <xs:element name="trigger" type="trigger" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="action">
+        <xs:annotation>
+            <xs:documentation>
+                An action is something to be done in reaction to a trigger.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the Action. It should be unique among all channel's actions.
+                        Used as a message key to get the name of the action in user's locale.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Message key of the description of the Action.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="input" type="parameters">
+                <xs:annotation>
+                    <xs:documentation>
+                        Input parameters required for this action execution.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="actions">
+        <xs:sequence>
+            <xs:element name="action" type="action" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="parameter">
+        <xs:attribute name="key" type="xs:string" use="required" />
+        <xs:attribute name="type" type="parameterType" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="parameters">
+        <xs:sequence>
+            <xs:element name="parameter" type="parameter"  minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="variable">
+        <xs:attribute name="key" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="variables">
+        <xs:sequence>
+            <xs:element name="variable" type="variable" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="parameterType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="string" />
+            <xs:enumeration value="text" />
+            <xs:enumeration value="date" />
+            <xs:enumeration value="number" />
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
