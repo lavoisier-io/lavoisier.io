@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channel xmlns="http://www.lavoisier.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lavoisier.io channel.xsd">
+    <name>channel.twitter.name</name>
+    <description>channel.twitter.description</description>
+    <globalActivationParameters>
+        <parameter key="channel.twitter.global-activation.app-id" type="string"/>
+        <parameter key="channel.twitter.global-activation.app-secret" type="number"/>
+    </globalActivationParameters>
+    <userActivationParameters>
+        <parameter key="channel.twitter.user-activation.token" type="date"/>
+    </userActivationParameters>
+    <triggers>
+        <trigger>
+            <name>channel.twitter.trigger.mention.name</name>
+            <description>channel.twitter.trigger.mention.description</description>
+            <input>
+            </input>
+            <output>
+                <variable key="channel.twitter.trigger.mention.output.tweet-content"/>
+                <variable key="channel.twitter.trigger.mention.output.tweet-author"/>
+                <variable key="channel.twitter.trigger.mention.output.tweet-url"/>
+                <variable key="channel.twitter.trigger.mention.output.tweet-date"/>
+            </output>
+        </trigger>
+        <trigger>
+            <name>channel.twitter.trigger.newtweet.name</name>
+            <description>channel.twitter.trigger.newtweet.description</description>
+            <input>
+                <parameter key="channel.twitter.trigger.newtweet.input.tweet-author" type="string"/>
+            </input>
+            <output>
+                <variable key="channel.twitter.trigger.newtweet.output.tweet-content"/>
+                <variable key="channel.twitter.trigger.newtweet.output.tweet-author"/>
+                <variable key="channel.twitter.trigger.newtweet.output.tweet-url"/>
+                <variable key="channel.twitter.trigger.newtweet.output.tweet-date"/>
+            </output>
+        </trigger>
+    </triggers>
+    <actions>
+        <action>
+            <name>channel.twitter.action.posttweet.name</name>
+            <description>channel.twitter.action.posttweet.description</description>
+            <input>
+                <parameter key="channel.twitter.action.posttweet.input.tweet-content" type="text"/>
+            </input>
+        </action>
+    </actions>
+</channel>
