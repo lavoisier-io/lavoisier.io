@@ -16,10 +16,10 @@
             <input>
             </input>
             <output>
-                <variable key="channel.twitter.trigger.mention.output.tweet-content"/>
-                <variable key="channel.twitter.trigger.mention.output.tweet-author"/>
-                <variable key="channel.twitter.trigger.mention.output.tweet-url"/>
-                <variable key="channel.twitter.trigger.mention.output.tweet-date"/>
+                <variable key="channel.twitter.trigger.mention.output.tweet-content" type="text"/>
+                <variable key="channel.twitter.trigger.mention.output.tweet-author" type="string"/>
+                <variable key="channel.twitter.trigger.mention.output.tweet-url" type="url"/>
+                <variable key="channel.twitter.trigger.mention.output.tweet-date" type="date"/>
             </output>
         </trigger>
         <trigger>
@@ -29,10 +29,10 @@
                 <parameter key="channel.twitter.trigger.newtweet.input.tweet-author" type="string"/>
             </input>
             <output>
-                <variable key="channel.twitter.trigger.newtweet.output.tweet-content"/>
-                <variable key="channel.twitter.trigger.newtweet.output.tweet-author"/>
-                <variable key="channel.twitter.trigger.newtweet.output.tweet-url"/>
-                <variable key="channel.twitter.trigger.newtweet.output.tweet-date"/>
+                <variable key="channel.twitter.trigger.newtweet.output.tweet-content" type="text"/>
+                <variable key="channel.twitter.trigger.newtweet.output.tweet-author" type="string"/>
+                <variable key="channel.twitter.trigger.newtweet.output.tweet-url" type="url"/>
+                <variable key="channel.twitter.trigger.newtweet.output.tweet-date" type="date"/>
             </output>
         </trigger>
     </triggers>

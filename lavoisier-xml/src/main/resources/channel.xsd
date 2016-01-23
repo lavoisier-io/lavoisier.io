@@ -156,6 +156,7 @@
 
     <xs:complexType name="variable">
         <xs:attribute name="key" type="xs:string" use="required" />
+        <xs:attribute name="type" type="parameterType" use="required" />
     </xs:complexType>
 
     <xs:complexType name="variables">
@@ -170,6 +171,9 @@
             <xs:enumeration value="text" />
             <xs:enumeration value="date" />
             <xs:enumeration value="number" />
+            <xs:enumeration value="file" />
+            <xs:enumeration value="image-file" />
+            <xs:enumeration value="url" />
         </xs:restriction>
     </xs:simpleType>
 
