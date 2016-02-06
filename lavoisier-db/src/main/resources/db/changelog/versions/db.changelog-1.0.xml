@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
+
+    <changeSet author="jchampemont" id="1">
+        <createTable tableName="lav_action">
+            <column name="act_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="act_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="act_channel_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="2">
+        <createTable tableName="lav_action_input">
+            <column name="ain_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ain_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ain_value" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ain_reaction_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="3">
+        <createTable tableName="lav_channel">
+            <column name="cha_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cha_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cha_version" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="4">
+        <createTable tableName="lav_channel_activation">
+            <column name="cac_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cac_channel_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cac_user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="5">
+        <createTable tableName="lav_channel_activation_parameter">
+            <column name="cap_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cap_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cap_value" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cap_channel_activation_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="6">
+        <createTable tableName="lav_channel_parameter">
+            <column name="cpr_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpr_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpr_value" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpr_channel_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="7">
+        <createTable tableName="lav_reaction">
+            <column name="rea_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rea_enabled" type="BOOLEAN"/>
+            <column name="rea_name" type="VARCHAR(150)"/>
+            <column name="rea_action_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rea_trigger_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rea_user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="8">
+        <createTable tableName="lav_reaction_log">
+            <column name="log_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="log_error_message" type="VARCHAR(255)"/>
+            <column name="log_execution_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="log_success" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="log_reaction_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="9">
+        <createTable tableName="lav_trigger">
+            <column name="tri_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tri_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tri_channel_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="10">
+        <createTable tableName="lav_user">
+            <column name="usr_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="usr_email" type="VARCHAR(64)"/>
+            <column name="locale" type="VARCHAR(2)"/>
+            <column name="usr_password" type="VARCHAR(60)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jchampemont" id="11">
+        <addPrimaryKey columnNames="act_id" constraintName="lav_actionPK" tableName="lav_action"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="12">
+        <addPrimaryKey columnNames="ain_id" constraintName="lav_action_inputPK" tableName="lav_action_input"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="13">
+        <addPrimaryKey columnNames="cha_id" constraintName="lav_channelPK" tableName="lav_channel"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="14">
+        <addPrimaryKey columnNames="cac_id" constraintName="lav_channel_activationPK" tableName="lav_channel_activation"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="15">
+        <addPrimaryKey columnNames="cap_id" constraintName="lav_channel_activation_parameterPK" tableName="lav_channel_activation_parameter"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="16">
+        <addPrimaryKey columnNames="cpr_id" constraintName="lav_channel_parameterPK" tableName="lav_channel_parameter"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="17">
+        <addPrimaryKey columnNames="rea_id" constraintName="lav_reactionPK" tableName="lav_reaction"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="18">
+        <addPrimaryKey columnNames="log_id" constraintName="lav_reaction_logPK" tableName="lav_reaction_log"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="19">
+        <addPrimaryKey columnNames="tri_id" constraintName="lav_triggerPK" tableName="lav_trigger"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="20">
+        <addPrimaryKey columnNames="usr_id" constraintName="lav_userPK" tableName="lav_user"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="21">
+        <addUniqueConstraint columnNames="act_name" constraintName="UC_LAV_ACTIONACT_NAME_COL" tableName="lav_action"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="22">
+        <addUniqueConstraint columnNames="cha_name" constraintName="UC_LAV_CHANNELCHA_NAME_COL" tableName="lav_channel"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="23">
+        <addUniqueConstraint columnNames="tri_name" constraintName="UC_LAV_TRIGGERTRI_NAME_COL" tableName="lav_trigger"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="24">
+        <addUniqueConstraint columnNames="usr_email" constraintName="UC_LAV_USERUSR_EMAIL_COL" tableName="lav_user"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="25">
+        <addForeignKeyConstraint baseColumnNames="rea_action_id" baseTableName="lav_reaction" constraintName="FK_1wquaudev0rtfge63v7vu7hu3" deferrable="false" initiallyDeferred="false" referencedColumnNames="act_id" referencedTableName="lav_action"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="26">
+        <addForeignKeyConstraint baseColumnNames="rea_trigger_id" baseTableName="lav_reaction" constraintName="FK_5nbj1jjhlwmt7tjqnxq4ld14q" deferrable="false" initiallyDeferred="false" referencedColumnNames="tri_id" referencedTableName="lav_trigger"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="27">
+        <addForeignKeyConstraint baseColumnNames="cpr_channel_id" baseTableName="lav_channel_parameter" constraintName="FK_8c3v5dsxlsd5b44vpuwmyw984" deferrable="false" initiallyDeferred="false" referencedColumnNames="cha_id" referencedTableName="lav_channel"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="28">
+        <addForeignKeyConstraint baseColumnNames="ain_reaction_id" baseTableName="lav_action_input" constraintName="FK_arjqptwwooyytw95delwww1sp" deferrable="false" initiallyDeferred="false" referencedColumnNames="rea_id" referencedTableName="lav_reaction"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="29">
+        <addForeignKeyConstraint baseColumnNames="log_reaction_id" baseTableName="lav_reaction_log" constraintName="FK_bqdxw4mx3uwoiic2vbnnnwu91" deferrable="false" initiallyDeferred="false" referencedColumnNames="rea_id" referencedTableName="lav_reaction"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="30">
+        <addForeignKeyConstraint baseColumnNames="cac_user_id" baseTableName="lav_channel_activation" constraintName="FK_dlgiubevr32nae3hte445as5a" deferrable="false" initiallyDeferred="false" referencedColumnNames="usr_id" referencedTableName="lav_user"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="31">
+        <addForeignKeyConstraint baseColumnNames="tri_channel_id" baseTableName="lav_trigger" constraintName="FK_es5p1cmhddbl0ix5ymaswtqw3" deferrable="false" initiallyDeferred="false" referencedColumnNames="cha_id" referencedTableName="lav_channel"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="32">
+        <addForeignKeyConstraint baseColumnNames="cap_channel_activation_id" baseTableName="lav_channel_activation_parameter" constraintName="FK_jwk87l3voe3fkmv84d4c5bows" deferrable="false" initiallyDeferred="false" referencedColumnNames="cac_id" referencedTableName="lav_channel_activation"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="33">
+        <addForeignKeyConstraint baseColumnNames="rea_user_id" baseTableName="lav_reaction" constraintName="FK_nflfsgj5o4ktml6tlx631qcti" deferrable="false" initiallyDeferred="false" referencedColumnNames="usr_id" referencedTableName="lav_user"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="34">
+        <addForeignKeyConstraint baseColumnNames="act_channel_id" baseTableName="lav_action" constraintName="FK_q3u3980arok9mdfeptkcks2g1" deferrable="false" initiallyDeferred="false" referencedColumnNames="cha_id" referencedTableName="lav_channel"/>
+    </changeSet>
+    <changeSet author="jchampemont" id="35">
+        <addForeignKeyConstraint baseColumnNames="cac_channel_id" baseTableName="lav_channel_activation" constraintName="FK_wfdcbqbu4057n7c1082f0dpr" deferrable="false" initiallyDeferred="false" referencedColumnNames="cha_id" referencedTableName="lav_channel"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -22,6 +22,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
 
+        <liquibase.hibernate.version>3.5</liquibase.hibernate.version>
+        <postgresql.version>9.4.1207</postgresql.version>
         <maven-jaxb2-plugin.version>0.13.1</maven-jaxb2-plugin.version>
         <jaxb-xew-plugin.version>1.6</jaxb-xew-plugin.version>
 
@@ -31,6 +33,7 @@
     <modules>
         <module>lavoisier-xml</module>
         <module>lavoisier-api</module>
+        <module>lavoisier-db</module>
     </modules>
 
     <dependencyManagement>
