@@ -1,4 +1,4 @@
-package io.lavoisier.core;
+package io.lavoisier;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

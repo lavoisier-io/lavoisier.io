@@ -5,10 +5,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.osgi.framework.*;
 import org.osgi.service.log.LogReaderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ExitCodeGenerator;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
@@ -21,9 +17,6 @@ import java.util.LinkedList;
 public class HostActivator implements BundleActivator, ServiceListener {
 
     private static final Log log = LogFactory.getLog(HostActivator.class);
-
-    @Autowired
-    private ApplicationContext applicationContext;
 
     private CommonsLoggingAdaptor adaptor = new CommonsLoggingAdaptor();
 
@@ -64,7 +57,6 @@ public class HostActivator implements BundleActivator, ServiceListener {
             lrs.removeLogListener(adaptor);
             i.remove();
         }
-        SpringApplication.exit(applicationContext, (() -> 0));
     }
 
     //  We use a ServiceListener to dynamically keep track of all the LogReaderService service being
