@@ -1,0 +1,94 @@
+package io.lavoisier.core.osgi;
+
+import io.lavoisier.api.Channel;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.felix.framework.Felix;
+import org.apache.felix.framework.util.FelixConstants;
+import org.osgi.framework.*;
+import org.osgi.util.tracker.ServiceTracker;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.io.File;
+import java.util.*;
+
+@Component
+public class ChannelLocatorImpl implements ChannelLocator {
+
+    private static final Log log = LogFactory.getLog(ChannelLocatorImpl.class);
+
+    private static final String BUNDLE_DIRECTORY = "bundle";
+
+    private static final String CHANNEL_BUNDLE_DIRECTORY = "channel";
+
+    @Autowired
+    private BundleActivator hostActivator;
+
+    private Felix felix;
+
+    private ServiceTracker channelTracker;
+
+    @PostConstruct
+    public void init() {
+        log.info("Initializing Felix...");
+        Map<String, Object> config = new HashMap<>();
+        config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log," + Channel.class.getPackage().getName());
+        config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
+        config.put(FelixConstants.LOG_LEVEL_PROP, "3");
+        config.put(FelixConstants.SYSTEMBUNDLE_ACTIVATORS_PROP, Arrays.asList(hostActivator));
+
+        felix = new Felix(config);
+
+        try {
+            felix.start();
+        } catch (BundleException e) {
+            log.error("Error while initializing <<Felix", e);
+            throw new RuntimeException(e);
+        }
+
+        startBundleInDirectory(BUNDLE_DIRECTORY, felix.getBundleContext());
+        startBundleInDirectory(CHANNEL_BUNDLE_DIRECTORY, felix.getBundleContext());
+
+
+        channelTracker = new ServiceTracker(felix.getBundleContext(), Channel.class.getName(), null);
+        channelTracker.open();
+
+        for(Object service : channelTracker.getServices()) {
+            ((Channel) service).getDescriptor();
+        }
+    }
+
+    @PreDestroy
+    public void destroy() throws BundleException, InterruptedException {
+        log.info("Stopping Felix...");
+        felix.stop();
+        felix.waitForStop(1000L);
+    }
+
+    private void startBundleInDirectory(String directory, BundleContext context) {
+        File bundleFolder = new File(directory);
+        File[] bundleFilesList = bundleFolder.listFiles((dir, name) -> name.endsWith(".jar"));
+
+        List<Bundle> installedBundles = new ArrayList<>();
+        log.info("Installing " + bundleFilesList.length + " bundles in " + directory + "/.");
+        for(File bundleFile : bundleFilesList) {
+            log.info("Installing " + bundleFile.getName());
+            try {
+                installedBundles.add(context.installBundle("file:" + directory + "/" + bundleFile.getName()));
+            } catch (BundleException e) {
+                log.error("Error while installing bundle " + directory + "/" + bundleFile.getName(), e);
+            }
+        }
+
+        for(Bundle bundle : installedBundles) {
+            try {
+                bundle.start();
+            } catch (BundleException e) {
+                log.error("Error while starting bundle " + directory + "/" + bundle.getSymbolicName(), e);
+            }
+        }
+    }
+}
