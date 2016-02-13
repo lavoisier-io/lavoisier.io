@@ -36,8 +36,6 @@
         <module>lavoisier-api</module>
         <module>lavoisier-db</module>
         <module>lavoisier-core</module>
-        <module>lavoisier-channel-parent</module>
-        <module>lavoisier-sample-channel</module>
         <module>lavoisier-web</module>
     </modules>
 
