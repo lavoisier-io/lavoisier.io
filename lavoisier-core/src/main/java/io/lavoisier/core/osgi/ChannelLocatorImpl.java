@@ -19,12 +19,12 @@
 package io.lavoisier.core.osgi;
 
 import io.lavoisier.api.Channel;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.util.FelixConstants;
 import org.osgi.framework.*;
 import org.osgi.util.tracker.ServiceTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ import java.util.*;
 @Component
 public class ChannelLocatorImpl implements ChannelLocator {
 
-    private static final Log log = LogFactory.getLog(ChannelLocatorImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChannelLocatorImpl.class);
 
     private static final String BUNDLE_DIRECTORY = "bundle";
 
@@ -51,9 +51,9 @@ public class ChannelLocatorImpl implements ChannelLocator {
 
     @PostConstruct
     public void init() {
-        log.info("Initializing Felix...");
+        logger.info("Initializing Felix...");
         Map<String, Object> config = new HashMap<>();
-        config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log," + Channel.class.getPackage().getName());
+        config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
         config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
         config.put(FelixConstants.LOG_LEVEL_PROP, "3");
         config.put(FelixConstants.SYSTEMBUNDLE_ACTIVATORS_PROP, Arrays.asList(hostActivator));
@@ -63,7 +63,7 @@ public class ChannelLocatorImpl implements ChannelLocator {
         try {
             felix.start();
         } catch (BundleException e) {
-            log.error("Error while initializing <<Felix", e);
+            logger.error("Error while initializing Felix", e);
             throw new RuntimeException(e);
         }
 
@@ -81,7 +81,7 @@ public class ChannelLocatorImpl implements ChannelLocator {
 
     @PreDestroy
     public void destroy() throws BundleException, InterruptedException {
-        log.info("Stopping Felix...");
+        logger.info("Stopping Felix...");
         felix.stop();
         felix.waitForStop(1000L);
     }
@@ -91,13 +91,13 @@ public class ChannelLocatorImpl implements ChannelLocator {
         File[] bundleFilesList = bundleFolder.listFiles((dir, name) -> name.endsWith(".jar"));
 
         List<Bundle> installedBundles = new ArrayList<>();
-        log.info("Installing " + bundleFilesList.length + " bundles in " + directory + "/.");
+        logger.info("Installing {} bundles in {}/.", bundleFilesList.length, directory);
         for(File bundleFile : bundleFilesList) {
-            log.info("Installing " + bundleFile.getName());
+            logger.info("Installing {}", bundleFile.getName());
             try {
                 installedBundles.add(context.installBundle("file:" + directory + "/" + bundleFile.getName()));
             } catch (BundleException e) {
-                log.error("Error while installing bundle " + directory + "/" + bundleFile.getName(), e);
+                logger.error("Error while installing bundle {}/{}", directory, bundleFile.getName(), e);
             }
         }
 
@@ -105,7 +105,7 @@ public class ChannelLocatorImpl implements ChannelLocator {
             try {
                 bundle.start();
             } catch (BundleException e) {
-                log.error("Error while starting bundle " + directory + "/" + bundle.getSymbolicName(), e);
+                logger.error("Error while starting bundle {}/{}", directory, bundle.getSymbolicName(), e);
             }
         }
     }

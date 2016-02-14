@@ -18,11 +18,11 @@
 
 package io.lavoisier.core.osgi;
 
-import io.lavoisier.core.osgi.utils.CommonsLoggingAdaptor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import io.lavoisier.core.osgi.utils.Slf4jLoggingAdaptor;
 import org.osgi.framework.*;
 import org.osgi.service.log.LogReaderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
@@ -34,9 +34,9 @@ import java.util.LinkedList;
 @Component
 public class HostActivator implements BundleActivator, ServiceListener {
 
-    private static final Log log = LogFactory.getLog(HostActivator.class);
+    private static final Logger logger = LoggerFactory.getLogger(HostActivator.class);
 
-    private CommonsLoggingAdaptor adaptor = new CommonsLoggingAdaptor();
+    private Slf4jLoggingAdaptor adaptor = new Slf4jLoggingAdaptor();
 
     private LinkedList<LogReaderService> readers = new LinkedList<LogReaderService>();
 
@@ -45,7 +45,6 @@ public class HostActivator implements BundleActivator, ServiceListener {
     @Override
     public void start(BundleContext context) throws Exception {
         this.context = context;
-
         // Register this class as a listener to updates of the service list
         String filter = "(objectclass=" + LogReaderService.class.getName() + ")";
         try {
@@ -54,7 +53,7 @@ public class HostActivator implements BundleActivator, ServiceListener {
             assert false : "addServiceListener failed: " + e.getMessage();
         }
 
-        // Register the CommonsLoggingAdaptor to all the LogReaderService objects available
+        // Register the Slf4jLoggingAdaptor to all the LogReaderService objects available
         // on the server.
         ServiceReference[] refs = context.getServiceReferences(LogReaderService.class.getName(), null);
         if (refs != null) {

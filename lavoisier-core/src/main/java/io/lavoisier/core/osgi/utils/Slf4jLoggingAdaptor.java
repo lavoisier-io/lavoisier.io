@@ -18,22 +18,22 @@
 
 package io.lavoisier.core.osgi.utils;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The CommonsLoggingAdaptor converts the LogEntry objects it receives into calls to the
- * commons logging loggers.
+ * The Slf4jLoggingAdaptor converts the LogEntry objects it receives into calls to the
+ * slf4j loggers.
  */
-public class CommonsLoggingAdaptor implements LogListener {
+public class Slf4jLoggingAdaptor implements LogListener {
 
-    private Map<Long, Log> loggers = new HashMap<Long, Log>();
+    private Map<Long, Logger> loggers = new HashMap<Long, Logger>();
 
     /**
      * This methods is called by the LogReaderService, and dispatch them to
@@ -48,9 +48,9 @@ public class CommonsLoggingAdaptor implements LogListener {
         }
 
         // Retrieve a Log object, or create it if none exists.
-        Log logger = loggers.get(log.getBundle().getBundleId());
+        Logger logger = loggers.get(log.getBundle().getBundleId());
         if (logger == null) {
-            logger = LogFactory.getLog(log.getBundle().getSymbolicName());
+            logger = LoggerFactory.getLogger(log.getBundle().getSymbolicName());
             loggers.put(log.getBundle().getBundleId(), logger);
         }
 
