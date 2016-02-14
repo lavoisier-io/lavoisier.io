@@ -32,6 +32,11 @@
             <outputDirectory>/</outputDirectory>
             <destName>lavoisier.io-${project.version}.jar</destName>
         </file>
+        <file>
+            <source>${project.parent.basedir}/lavoisier-web/src/main/resources/application.properties</source>
+            <outputDirectory>/</outputDirectory>
+            <filtered>true</filtered>
+        </file>
     </files>
     <fileSets>
         <!-- Include some documentation files -->
