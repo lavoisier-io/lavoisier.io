@@ -27,34 +27,39 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>lavoisier-web</artifactId>
+    <artifactId>lavoisier-assembly</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>io.lavoisier</groupId>
-            <artifactId>lavoisier-core</artifactId>
+            <artifactId>lavoisier-web</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.log</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <finalName>lavoisier.io-${project.version}</finalName>
+                    <descriptor>src/assembly/assembly.xml</descriptor>
+                </configuration>
                 <executions>
                     <execution>
+                        <id>create-archive</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>repackage</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
 </project>

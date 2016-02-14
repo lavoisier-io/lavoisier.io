@@ -62,6 +62,7 @@
         <module>lavoisier-db</module>
         <module>lavoisier-core</module>
         <module>lavoisier-web</module>
+        <module>lavoisier-assembly</module>
     </modules>
 
     <dependencyManagement>
