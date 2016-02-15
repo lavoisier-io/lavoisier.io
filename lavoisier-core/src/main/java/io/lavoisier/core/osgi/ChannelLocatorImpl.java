@@ -19,6 +19,7 @@
 package io.lavoisier.core.osgi;
 
 import io.lavoisier.api.Channel;
+import org.apache.felix.fileinstall.internal.DirectoryWatcher;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.util.FelixConstants;
 import org.osgi.framework.*;
@@ -38,9 +39,9 @@ public class ChannelLocatorImpl implements ChannelLocator {
 
     private static final Logger logger = LoggerFactory.getLogger(ChannelLocatorImpl.class);
 
-    private static final String BUNDLE_DIRECTORY = "bundle";
+    private static final String BUNDLE_DIRECTORY = "bundle/";
 
-    private static final String CHANNEL_BUNDLE_DIRECTORY = "channel";
+    private static final String CHANNEL_BUNDLE_DIRECTORY = "channel/";
 
     @Autowired
     private BundleActivator hostActivator;
@@ -52,13 +53,7 @@ public class ChannelLocatorImpl implements ChannelLocator {
     @PostConstruct
     public void init() {
         logger.info("Initializing Felix...");
-        Map<String, Object> config = new HashMap<>();
-        config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
-        config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
-        config.put(FelixConstants.LOG_LEVEL_PROP, "3");
-        config.put(FelixConstants.SYSTEMBUNDLE_ACTIVATORS_PROP, Arrays.asList(hostActivator));
-
-        felix = new Felix(config);
+        felix = new Felix(config());
 
         try {
             felix.start();
@@ -67,16 +62,7 @@ public class ChannelLocatorImpl implements ChannelLocator {
             throw new RuntimeException(e);
         }
 
-        startBundleInDirectory(BUNDLE_DIRECTORY, felix.getBundleContext());
-        startBundleInDirectory(CHANNEL_BUNDLE_DIRECTORY, felix.getBundleContext());
-
-
-        channelTracker = new ServiceTracker(felix.getBundleContext(), Channel.class.getName(), null);
-        channelTracker.open();
-
-        for(Object service : channelTracker.getServices()) {
-            ((Channel) service).getDescriptor();
-        }
+        startAllBundlesInDirectory(BUNDLE_DIRECTORY, felix.getBundleContext());
     }
 
     @PreDestroy
@@ -86,18 +72,18 @@ public class ChannelLocatorImpl implements ChannelLocator {
         felix.waitForStop(1000L);
     }
 
-    private void startBundleInDirectory(String directory, BundleContext context) {
+    private void startAllBundlesInDirectory(String directory, BundleContext context) {
         File bundleFolder = new File(directory);
         File[] bundleFilesList = bundleFolder.listFiles((dir, name) -> name.endsWith(".jar"));
 
         List<Bundle> installedBundles = new ArrayList<>();
-        logger.info("Installing {} bundles in {}/.", bundleFilesList.length, directory);
+        logger.info("Installing {} bundles in {}.", bundleFilesList.length, directory);
         for(File bundleFile : bundleFilesList) {
             logger.info("Installing {}", bundleFile.getName());
             try {
-                installedBundles.add(context.installBundle("file:" + directory + "/" + bundleFile.getName()));
+                installedBundles.add(context.installBundle("file:" + directory + bundleFile.getName()));
             } catch (BundleException e) {
-                logger.error("Error while installing bundle {}/{}", directory, bundleFile.getName(), e);
+                logger.error("Error while installing bundle {}{}", directory, bundleFile.getName(), e);
             }
         }
 
@@ -105,8 +91,18 @@ public class ChannelLocatorImpl implements ChannelLocator {
             try {
                 bundle.start();
             } catch (BundleException e) {
-                logger.error("Error while starting bundle {}/{}", directory, bundle.getSymbolicName(), e);
+                logger.error("Error while starting bundle {}{}", directory, bundle.getSymbolicName(), e);
             }
         }
+    }
+
+    private Map<String, Object> config() {
+        Map<String, Object> config = new HashMap<>();
+        config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
+        config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
+        config.put(FelixConstants.LOG_LEVEL_PROP, "3");
+        config.put(FelixConstants.SYSTEMBUNDLE_ACTIVATORS_PROP, Arrays.asList(hostActivator));
+        config.put(DirectoryWatcher.DIR, CHANNEL_BUNDLE_DIRECTORY);
+        return config;
     }
 }

@@ -64,6 +64,7 @@
             <outputDirectory>/bundle</outputDirectory>
             <includes>
                 <include>org.apache.felix:org.apache.felix.log</include>
+                <include>org.apache.felix:org.apache.felix.fileinstall</include>
             </includes>
         </dependencySet>
     </dependencySets>
