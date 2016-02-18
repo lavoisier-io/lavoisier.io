@@ -29,18 +29,25 @@
                 </xs:documentation>
             </xs:annotation>
             <xs:sequence>
+                <xs:element name="id" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            ID of the Channel. Must be unique among all existing channels. You should use a
+                            java package like identifier.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="name" type="xs:string">
                     <xs:annotation>
                         <xs:documentation>
-                            Name of the Channel. It should be unique among all existing channels.
-                            Used as a message key to get the name of the channel in user's locale.
+                            Name of the Channel.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
                 <xs:element name="description" type="xs:string">
                     <xs:annotation>
                         <xs:documentation>
-                            Message key of the description of the Channel.
+                            Short description of the Channel.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -92,18 +99,24 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
+            <xs:element name="id" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        ID of the Trigger. It should be unique among all channel's triggers.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="name" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Name of the Trigger. It should be unique among all channel's triggers.
-                        Used as a message key to get the name of the trigger in user's locale.
+                        Name of the Trigger
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="description" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Message key of the description of the Trigger.
+                        Description of the Trigger
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -137,18 +150,24 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
+            <xs:element name="id" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        ID of the Action. It should be unique among all channel's actions.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="name" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Name of the Action. It should be unique among all channel's actions.
-                        Used as a message key to get the name of the action in user's locale.
+                        Name of the Action
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="description" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Message key of the description of the Action.
+                        Description of the Action.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>

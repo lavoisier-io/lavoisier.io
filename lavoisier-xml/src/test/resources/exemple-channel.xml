@@ -18,49 +18,53 @@
   -->
 
 <channel xmlns="http://www.lavoisier.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lavoisier.io channel.xsd">
-    <name>channel.twitter.name</name>
-    <description>channel.twitter.description</description>
+    <id>io.lavoisier.channel.twitter</id>
+    <name>Twitter</name>
+    <description>Connect to the famous Twitter social network!</description>
     <version>1.1.0</version>
     <globalActivationParameters>
-        <parameter key="channel.twitter.global-activation.app-id" type="string"/>
-        <parameter key="channel.twitter.global-activation.app-secret" type="number"/>
+        <parameter key="appId" type="string"/>
+        <parameter key="appSecret" type="number"/>
     </globalActivationParameters>
     <userActivationParameters>
-        <parameter key="channel.twitter.user-activation.token" type="date"/>
+        <parameter key="userToken" type="string"/>
     </userActivationParameters>
     <triggers>
         <trigger>
-            <name>channel.twitter.trigger.mention.name</name>
-            <description>channel.twitter.trigger.mention.description</description>
+            <id>mention</id>
+            <name>Mention</name>
+            <description>Someone mentions you</description>
             <input>
             </input>
             <output>
-                <variable key="channel.twitter.trigger.mention.output.tweet-content" type="text"/>
-                <variable key="channel.twitter.trigger.mention.output.tweet-author" type="string"/>
-                <variable key="channel.twitter.trigger.mention.output.tweet-url" type="url"/>
-                <variable key="channel.twitter.trigger.mention.output.tweet-date" type="date"/>
+                <variable key="tweetContent" type="text"/>
+                <variable key="tweetAuthor" type="string"/>
+                <variable key="tweetUrl" type="url"/>
+                <variable key="tweetDate" type="date"/>
             </output>
         </trigger>
         <trigger>
-            <name>channel.twitter.trigger.newtweet.name</name>
-            <description>channel.twitter.trigger.newtweet.description</description>
+            <id>newtweetfromuser</id>
+            <name>New tweet from user</name>
+            <description>A specific user post a new tweet</description>
             <input>
-                <parameter key="channel.twitter.trigger.newtweet.input.tweet-author" type="string"/>
+                <parameter key="username" type="string"/>
             </input>
             <output>
-                <variable key="channel.twitter.trigger.newtweet.output.tweet-content" type="text"/>
-                <variable key="channel.twitter.trigger.newtweet.output.tweet-author" type="string"/>
-                <variable key="channel.twitter.trigger.newtweet.output.tweet-url" type="url"/>
-                <variable key="channel.twitter.trigger.newtweet.output.tweet-date" type="date"/>
+                <variable key="tweetContent" type="text"/>
+                <variable key="tweetAuthor" type="string"/>
+                <variable key="tweetUrl" type="url"/>
+                <variable key="tweetDate" type="date"/>
             </output>
         </trigger>
     </triggers>
     <actions>
         <action>
-            <name>channel.twitter.action.posttweet.name</name>
-            <description>channel.twitter.action.posttweet.description</description>
+            <id>posttweet</id>
+            <name>Tweet</name>
+            <description>Post a tweet</description>
             <input>
-                <parameter key="channel.twitter.action.posttweet.input.tweet-content" type="text"/>
+                <parameter key="tweetContent" type="text"/>
             </input>
         </action>
     </actions>
