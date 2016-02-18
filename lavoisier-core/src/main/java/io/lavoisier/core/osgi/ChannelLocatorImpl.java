@@ -19,6 +19,7 @@
 package io.lavoisier.core.osgi;
 
 import io.lavoisier.api.Channel;
+import io.lavoisier.core.ChannelLocator;
 import org.apache.felix.fileinstall.internal.DirectoryWatcher;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.util.FelixConstants;
@@ -48,7 +49,7 @@ public class ChannelLocatorImpl implements ChannelLocator {
 
     private Felix felix;
 
-    private ServiceTracker channelTracker;
+    private ChannelListener listener = new ChannelListener();
 
     @PostConstruct
     public void init() {
@@ -62,7 +63,18 @@ public class ChannelLocatorImpl implements ChannelLocator {
             throw new RuntimeException(e);
         }
 
+        try {
+            felix.getBundleContext().addServiceListener(listener, "(objectClass=io.lavoisier.api.Channel)");
+        } catch (InvalidSyntaxException e) {
+            logger.error("Error while registering channel service listener", e);
+        }
+        listener.start(felix.getBundleContext());
+
         startAllBundlesInDirectory(BUNDLE_DIRECTORY, felix.getBundleContext());
+    }
+
+    public Collection<io.lavoisier.core.channel.xml.Channel> getAllChannels() {
+        return listener.getAllChannels();
     }
 
     @PreDestroy

@@ -16,10 +16,11 @@
  * limitations under the License.
  */
 
-package io.lavoisier.core.osgi;
+package io.lavoisier.core;
 
 /**
  * A channel locator is capable of locating the channels registered in the application.
  */
 public interface ChannelLocator {
+
 }
