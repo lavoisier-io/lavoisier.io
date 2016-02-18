@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>io.lavoisier</groupId>
-            <artifactId>lavoisier-core</artifactId>
+            <artifactId>lavoisier-core-osgi</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

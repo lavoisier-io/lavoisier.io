@@ -61,6 +61,7 @@
         <module>lavoisier-core</module>
         <module>lavoisier-web</module>
         <module>lavoisier-assembly</module>
+        <module>lavoisier-core-osgi</module>
     </modules>
 
     <dependencyManagement>
