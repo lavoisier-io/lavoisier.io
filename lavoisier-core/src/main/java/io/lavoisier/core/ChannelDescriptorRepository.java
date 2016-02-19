@@ -22,10 +22,7 @@ import io.lavoisier.core.channel.xml.Channel;
 
 import java.util.Collection;
 
-/**
- * A channel locator is capable of locating the channels registered in the application.
- */
-public interface ChannelLocator {
+public interface ChannelDescriptorRepository {
 
     Collection<Channel> getAllChannels();
 

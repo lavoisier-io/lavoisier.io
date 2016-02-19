@@ -19,12 +19,11 @@
 package io.lavoisier.core.osgi;
 
 import io.lavoisier.api.Channel;
-import io.lavoisier.core.ChannelLocator;
+import io.lavoisier.core.ChannelDescriptorRepository;
 import org.apache.felix.fileinstall.internal.DirectoryWatcher;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.util.FelixConstants;
 import org.osgi.framework.*;
-import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +35,9 @@ import java.io.File;
 import java.util.*;
 
 @Component
-public class ChannelLocatorImpl implements ChannelLocator {
+public class ChannelDescriptorRepositoryImpl implements ChannelDescriptorRepository {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChannelLocatorImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChannelDescriptorRepositoryImpl.class);
 
     private static final String BUNDLE_DIRECTORY = "bundle/";
 
