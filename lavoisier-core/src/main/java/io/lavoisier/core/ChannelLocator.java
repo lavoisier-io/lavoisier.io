@@ -18,9 +18,16 @@
 
 package io.lavoisier.core;
 
+import io.lavoisier.core.channel.xml.Channel;
+
+import java.util.Collection;
+
 /**
  * A channel locator is capable of locating the channels registered in the application.
  */
 public interface ChannelLocator {
 
+    Collection<Channel> getAllChannels();
+
+    Channel getChannel(String channelId);
 }

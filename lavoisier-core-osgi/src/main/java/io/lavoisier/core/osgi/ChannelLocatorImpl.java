@@ -73,8 +73,14 @@ public class ChannelLocatorImpl implements ChannelLocator {
         startAllBundlesInDirectory(BUNDLE_DIRECTORY, felix.getBundleContext());
     }
 
+    @Override
     public Collection<io.lavoisier.core.channel.xml.Channel> getAllChannels() {
         return listener.getAllChannels();
+    }
+
+    @Override
+    public io.lavoisier.core.channel.xml.Channel getChannel(String channelId) {
+        return listener.getChannel(channelId);
     }
 
     @PreDestroy

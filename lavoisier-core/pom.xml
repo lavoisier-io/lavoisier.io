@@ -30,6 +30,10 @@
     <artifactId>lavoisier-core</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>io.lavoisier</groupId>
+            <artifactId>lavoisier-xml</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -60,6 +60,10 @@ public class ChannelListener implements ServiceListener {
         return channels.values();
     }
 
+    public io.lavoisier.core.channel.xml.Channel getChannel(String id) {
+        return channels.get(id);
+    }
+
     @Override
     public void serviceChanged(ServiceEvent event) {
         switch (event.getType()) {
