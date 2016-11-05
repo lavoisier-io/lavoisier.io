@@ -42,7 +42,7 @@ public class ChannelParameter {
 
     @Column(name = "cpr_value", nullable = false)
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.StringType")
     private String value;
 
     public UUID getId() {
