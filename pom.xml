@@ -56,7 +56,7 @@
 
     <modules>
         <module>lavoisier-xml</module>
-        <module>lavoisier-api</module>
+        <module>lavoisier-channel-api</module>
         <module>lavoisier-db</module>
         <module>lavoisier-core</module>
         <module>lavoisier-web</module>
