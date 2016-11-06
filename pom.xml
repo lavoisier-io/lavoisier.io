@@ -64,9 +64,9 @@
         <module>lavoisier-persistence-api</module>
         <module>lavoisier-persistence-jpa</module>
         <module>lavoisier-core</module>
-        <module>lavoisier-web</module>
-        <module>lavoisier-assembly</module>
         <module>lavoisier-core-osgi</module>
+        <module>lavoisier-app</module>
+        <module>lavoisier-assembly</module>
     </modules>
 
     <dependencyManagement>
@@ -100,11 +100,6 @@
             <dependency>
                 <groupId>io.lavoisier</groupId>
                 <artifactId>lavoisier-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.lavoisier</groupId>
-                <artifactId>lavoisier-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
