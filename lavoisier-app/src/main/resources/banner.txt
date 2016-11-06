@@ -4,4 +4,4 @@
 / /__| (_| |\ V / (_) | \__ \ |  __/ |     _  | | (_) |
 \____/\__,_| \_/ \___/|_|___/_|\___|_|    (_) |_|\___/
 -------------------------------------------------------
-Version @project.version@
+Version @project.version@ (using Spring @spring-boot.version@)
