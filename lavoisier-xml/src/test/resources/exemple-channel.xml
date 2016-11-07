@@ -29,8 +29,8 @@
     <userActivationParameters>
         <parameter key="userToken" type="string"/>
     </userActivationParameters>
-    <triggers>
-        <trigger>
+    <sparks>
+        <spark>
             <id>mention</id>
             <name>Mention</name>
             <description>Someone mentions you</description>
@@ -42,8 +42,8 @@
                 <variable key="tweetUrl" type="url"/>
                 <variable key="tweetDate" type="date"/>
             </output>
-        </trigger>
-        <trigger>
+        </spark>
+        <spark>
             <id>newtweetfromuser</id>
             <name>New tweet from user</name>
             <description>A specific user post a new tweet</description>
@@ -56,8 +56,35 @@
                 <variable key="tweetUrl" type="url"/>
                 <variable key="tweetDate" type="date"/>
             </output>
-        </trigger>
-    </triggers>
+        </spark>
+    </sparks>
+    <conditions>
+        <condition>
+            <id>userhastweetedrecently</id>
+            <name>A user has tweeted recently</name>
+            <description>A specific user has tweeted in the last N minutes</description>
+            <input>
+                <parameter key="username" type="string"/>
+                <parameter key="timeframe" type="number"/>
+            </input>
+        </condition>
+    </conditions>
+    <fuels>
+        <fuel>
+            <id>latesttweetfromuser</id>
+            <name>Latest tweet from user</name>
+            <description>The latest tweet from a specific user</description>
+            <input>
+                <parameter key="username" type="string"/>
+            </input>
+            <output>
+                <variable key="tweetContent" type="text"/>
+                <variable key="tweetAuthor" type="string"/>
+                <variable key="tweetUrl" type="url"/>
+                <variable key="tweetDate" type="date"/>
+            </output>
+        </fuel>
+    </fuels>
     <actions>
         <action>
             <id>posttweet</id>

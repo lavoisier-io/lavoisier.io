@@ -24,7 +24,7 @@
         <xs:complexType>
             <xs:annotation>
                 <xs:documentation>
-                    A channel is the basic building block of Lavoisier.io. It represents how Lavoisier.io connects to
+                    A channel is the basic building block of Lavoisier. It represents how Lavoisier connects to
                     various applications, web services, and iot objects.
                 </xs:documentation>
             </xs:annotation>
@@ -74,17 +74,34 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="triggers" type="triggers">
+                <xs:element name="sparks" type="sparks">
                     <xs:annotation>
                         <xs:documentation>
-                            The list of triggers exposed by this channel.
+                            The list of sparks exposed by this channel. A spark is an external event triggering a
+                            reaction.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="conditions" type="conditions">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The list of conditions exposed by this channel. A condition must be met for a reaction to
+                            happen.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="fuels" type="fuels">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Fuel is data used by a reaction to produce an action.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
                 <xs:element name="actions" type="actions">
                     <xs:annotation>
                         <xs:documentation>
-                            The list of actions exposed by this channel.
+                            The list of actions exposed by this channel. The actions will be executed when spark happens
+                            and if conditions are met.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -92,61 +109,156 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="trigger">
+    <xs:complexType name="spark">
         <xs:annotation>
             <xs:documentation>
-                A trigger is an external event watched by a channel.
+                A spark is an external event triggering a reaction.
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="id" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        ID of the Trigger. It should be unique among all channel's triggers.
+                        ID of the spark. It should be unique among all channel's sparks.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="name" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Name of the Trigger
+                        Name of the spark
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="description" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Description of the Trigger
+                        Description of the spark
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="input" type="parameters">
                 <xs:annotation>
                     <xs:documentation>
-                        Input parameters required for this trigger execution.
+                        Input parameters required for this spark to be triggered.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="output" type="variables">
                 <xs:annotation>
                     <xs:documentation>
-                        Output variables produced by this trigger.
+                        Output data variables produced by this spark.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="triggers">
+    <xs:complexType name="sparks">
         <xs:sequence>
-            <xs:element name="trigger" type="trigger" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="spark" type="spark" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="condition">
+        <xs:annotation>
+            <xs:documentation>
+                A condition must be met for a reaction to happen.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        ID of the condition. It should be unique among all channel's conditions.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the condition
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Description of the condition
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="input" type="parameters">
+                <xs:annotation>
+                    <xs:documentation>
+                        Input parameters of the condition.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="conditions">
+        <xs:sequence>
+            <xs:element name="condition" type="condition" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="fuel">
+        <xs:annotation>
+            <xs:documentation>
+                Fuel is data used by a reaction to produce an action.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        ID of the fuel. It should be unique among all channel's sparks.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Name of the fuel
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Description of the fuel
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="input" type="parameters">
+                <xs:annotation>
+                    <xs:documentation>
+                        Input parameters of the fuel.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="output" type="variables">
+                <xs:annotation>
+                    <xs:documentation>
+                        Output data variables produced by this fuel.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="fuels">
+        <xs:sequence>
+            <xs:element name="fuel" type="fuel" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="action">
         <xs:annotation>
             <xs:documentation>
-                An action is something to be done in reaction to a trigger.
+                An action is something to be done in reaction to a trigger when conditions are met.
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
