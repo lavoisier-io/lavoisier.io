@@ -50,7 +50,7 @@
         <felix.version>5.6.1</felix.version>
         <felix-log.version>1.0.1</felix-log.version>
         <felix-fileinstall.version>3.5.6</felix-fileinstall.version>
-        <osgi.version>1.4.0</osgi.version>
+        <osgi.version>5.0.0</osgi.version>
         <commons-logging.version>1.2</commons-logging.version>
         <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
 
@@ -107,16 +107,26 @@
                 <artifactId>lavoisier-core-osgi</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.lavoisier</groupId>
+                <artifactId>lavoisier-osgi-felix</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- OSGI Dependencies -->
             <dependency>
-                <groupId>org.apache.felix</groupId>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.compendium</artifactId>
+                <version>${osgi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>${osgi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
-                <artifactId>org.osgi.compendium</artifactId>
+                <artifactId>org.osgi.core</artifactId>
                 <version>${osgi.version}</version>
             </dependency>
             <dependency>

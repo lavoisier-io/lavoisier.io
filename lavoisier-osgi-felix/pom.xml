@@ -27,23 +27,24 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>lavoisier-core-osgi</artifactId>
+    <artifactId>lavoisier-osgi-felix</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>io.lavoisier</groupId>
-            <artifactId>lavoisier-xml</artifactId>
-            <version>${project.parent.version}</version>
+            <artifactId>lavoisier-core-osgi</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.lavoisier</groupId>
-            <artifactId>lavoisier-channel-api</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.lavoisier</groupId>
-            <artifactId>lavoisier-core</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.fileinstall</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -58,18 +59,6 @@
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.compendium</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
         </dependency>
     </dependencies>
 

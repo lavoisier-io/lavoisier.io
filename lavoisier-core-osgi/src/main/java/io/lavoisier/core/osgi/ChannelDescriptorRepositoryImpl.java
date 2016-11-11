@@ -18,21 +18,23 @@
 
 package io.lavoisier.core.osgi;
 
-import io.lavoisier.api.Channel;
 import io.lavoisier.core.ChannelDescriptorRepository;
-import org.apache.felix.fileinstall.internal.DirectoryWatcher;
-import org.apache.felix.framework.Felix;
-import org.apache.felix.framework.util.FelixConstants;
-import org.osgi.framework.*;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.launch.Framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Component
 public class ChannelDescriptorRepositoryImpl implements ChannelDescriptorRepository {
@@ -41,35 +43,35 @@ public class ChannelDescriptorRepositoryImpl implements ChannelDescriptorReposit
 
     private static final String BUNDLE_DIRECTORY = "bundle/";
 
-    private static final String CHANNEL_BUNDLE_DIRECTORY = "channel/";
+    private ChannelListener listener;
 
-    @Autowired
-    private BundleActivator hostActivator;
+    private Framework osgiFramework;
 
-    private Felix felix;
-
-    private ChannelListener listener = new ChannelListener();
+    @Inject
+    public ChannelDescriptorRepositoryImpl(Framework osgiFramework, ChannelListener listener) {
+        this.listener = listener;
+        this.osgiFramework = osgiFramework;
+    }
 
     @PostConstruct
     public void init() {
-        logger.info("Initializing Felix...");
-        felix = new Felix(config());
+        logger.info("Initializing OSGi Framework...");
 
         try {
-            felix.start();
+            osgiFramework.start();
         } catch (BundleException e) {
-            logger.error("Error while initializing Felix", e);
+            logger.error("Error while initializing OSGi Framework", e);
             throw new RuntimeException(e);
         }
 
         try {
-            felix.getBundleContext().addServiceListener(listener, "(objectClass=io.lavoisier.api.Channel)");
+            osgiFramework.getBundleContext().addServiceListener(listener, "(objectClass=io.lavoisier.api.Channel)");
         } catch (InvalidSyntaxException e) {
             logger.error("Error while registering channel service listener", e);
         }
-        listener.start(felix.getBundleContext());
+        listener.start(osgiFramework.getBundleContext());
 
-        startAllBundlesInDirectory(BUNDLE_DIRECTORY, felix.getBundleContext());
+        startAllBundlesInDirectory(BUNDLE_DIRECTORY, osgiFramework.getBundleContext());
     }
 
     @Override
@@ -84,14 +86,18 @@ public class ChannelDescriptorRepositoryImpl implements ChannelDescriptorReposit
 
     @PreDestroy
     public void destroy() throws BundleException, InterruptedException {
-        logger.info("Stopping Felix...");
-        felix.stop();
-        felix.waitForStop(1000L);
+        logger.info("Stopping OSGi Framework...");
+        osgiFramework.stop();
+        osgiFramework.waitForStop(1000L);
     }
 
     private void startAllBundlesInDirectory(String directory, BundleContext context) {
         File bundleFolder = new File(directory);
         File[] bundleFilesList = bundleFolder.listFiles((dir, name) -> name.endsWith(".jar"));
+
+        if(bundleFilesList == null) {
+            bundleFilesList = new File[]{};
+        }
 
         List<Bundle> installedBundles = new ArrayList<>();
         logger.info("Installing {} bundles in {}.", bundleFilesList.length, directory);
@@ -111,15 +117,5 @@ public class ChannelDescriptorRepositoryImpl implements ChannelDescriptorReposit
                 logger.error("Error while starting bundle {}{}", directory, bundle.getSymbolicName(), e);
             }
         }
-    }
-
-    private Map<String, Object> config() {
-        Map<String, Object> config = new HashMap<>();
-        config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
-        config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
-        config.put(FelixConstants.LOG_LEVEL_PROP, "3");
-        config.put(FelixConstants.SYSTEMBUNDLE_ACTIVATORS_PROP, Arrays.asList(hostActivator));
-        config.put(DirectoryWatcher.DIR, CHANNEL_BUNDLE_DIRECTORY);
-        return config;
     }
 }

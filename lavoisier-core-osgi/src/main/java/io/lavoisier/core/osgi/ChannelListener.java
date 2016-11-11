@@ -22,6 +22,7 @@ import io.lavoisier.api.Channel;
 import org.osgi.framework.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -32,6 +33,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class ChannelListener implements ServiceListener {
 
     private static final Logger logger = LoggerFactory.getLogger(ChannelListener.class);
@@ -47,6 +49,7 @@ public class ChannelListener implements ServiceListener {
             serviceReferences = context.getServiceReferences(Channel.class, null);
         } catch (InvalidSyntaxException e) {
             //filter is null, no SyntaxException should be thrown
+            throw new RuntimeException(e);
         }
         for(ServiceReference<Channel> serviceReference : serviceReferences) {
             Channel service = context.getService(serviceReference);
