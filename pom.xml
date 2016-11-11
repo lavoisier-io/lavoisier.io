@@ -65,6 +65,7 @@
         <module>lavoisier-persistence-jpa</module>
         <module>lavoisier-core</module>
         <module>lavoisier-core-osgi</module>
+        <module>lavoisier-osgi-felix</module>
         <module>lavoisier-app</module>
         <module>lavoisier-assembly</module>
     </modules>
@@ -110,6 +111,11 @@
             <dependency>
                 <groupId>io.lavoisier</groupId>
                 <artifactId>lavoisier-osgi-felix</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.lavoisier</groupId>
+                <artifactId>lavoisier-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

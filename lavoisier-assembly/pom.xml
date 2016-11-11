@@ -32,8 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>io.lavoisier</groupId>
-            <artifactId>lavoisier-web</artifactId>
-            <version>${project.parent.version}</version>
+            <artifactId>lavoisier-app</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>

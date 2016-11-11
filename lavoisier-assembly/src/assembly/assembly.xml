@@ -28,12 +28,12 @@
     <!-- Include Spring Boot Fat JAR -->
     <files>
         <file>
-            <source>${project.parent.basedir}/lavoisier-web/target/lavoisier-web-${project.version}.jar</source>
+            <source>${project.parent.basedir}/lavoisier-app/target/lavoisier-app-${project.version}.jar</source>
             <outputDirectory>/</outputDirectory>
             <destName>lavoisier.io-${project.version}.jar</destName>
         </file>
         <file>
-            <source>${project.parent.basedir}/lavoisier-web/src/main/resources/application.properties</source>
+            <source>${project.parent.basedir}/lavoisier-app/src/main/resources/application.properties</source>
             <outputDirectory>/</outputDirectory>
             <filtered>true</filtered>
         </file>
