@@ -39,39 +39,11 @@ import java.util.List;
 @Component
 public class ChannelDescriptorRepositoryImpl implements ChannelDescriptorRepository {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChannelDescriptorRepositoryImpl.class);
-
-    private static final String BUNDLE_DIRECTORY = "bundle/";
-
     private ChannelListener listener;
 
-    private Framework osgiFramework;
-
     @Inject
-    public ChannelDescriptorRepositoryImpl(Framework osgiFramework, ChannelListener listener) {
+    public ChannelDescriptorRepositoryImpl(ChannelListener listener) {
         this.listener = listener;
-        this.osgiFramework = osgiFramework;
-    }
-
-    @PostConstruct
-    public void init() {
-        logger.info("Initializing OSGi Framework...");
-
-        try {
-            osgiFramework.start();
-        } catch (BundleException e) {
-            logger.error("Error while initializing OSGi Framework", e);
-            throw new RuntimeException(e);
-        }
-
-        try {
-            osgiFramework.getBundleContext().addServiceListener(listener, "(objectClass=io.lavoisier.api.Channel)");
-        } catch (InvalidSyntaxException e) {
-            logger.error("Error while registering channel service listener", e);
-        }
-        listener.start(osgiFramework.getBundleContext());
-
-        startAllBundlesInDirectory(BUNDLE_DIRECTORY, osgiFramework.getBundleContext());
     }
 
     @Override
@@ -84,38 +56,4 @@ public class ChannelDescriptorRepositoryImpl implements ChannelDescriptorReposit
         return listener.getChannel(channelId);
     }
 
-    @PreDestroy
-    public void destroy() throws BundleException, InterruptedException {
-        logger.info("Stopping OSGi Framework...");
-        osgiFramework.stop();
-        osgiFramework.waitForStop(1000L);
-    }
-
-    private void startAllBundlesInDirectory(String directory, BundleContext context) {
-        File bundleFolder = new File(directory);
-        File[] bundleFilesList = bundleFolder.listFiles((dir, name) -> name.endsWith(".jar"));
-
-        if(bundleFilesList == null) {
-            bundleFilesList = new File[]{};
-        }
-
-        List<Bundle> installedBundles = new ArrayList<>();
-        logger.info("Installing {} bundles in {}.", bundleFilesList.length, directory);
-        for(File bundleFile : bundleFilesList) {
-            logger.info("Installing {}", bundleFile.getName());
-            try {
-                installedBundles.add(context.installBundle("file:" + directory + bundleFile.getName()));
-            } catch (BundleException e) {
-                logger.error("Error while installing bundle {}{}", directory, bundleFile.getName(), e);
-            }
-        }
-
-        for(Bundle bundle : installedBundles) {
-            try {
-                bundle.start();
-            } catch (BundleException e) {
-                logger.error("Error while starting bundle {}{}", directory, bundle.getSymbolicName(), e);
-            }
-        }
-    }
 }
