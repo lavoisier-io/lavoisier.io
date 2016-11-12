@@ -27,7 +27,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>lavoisier-core-osgi</artifactId>
+    <artifactId>lavoisier-osgi</artifactId>
 
     <dependencies>
         <dependency>
