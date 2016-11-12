@@ -17,10 +17,10 @@
  */
 package io.lavoisier.osgi;
 
+import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.launch.Framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class OSGiConfiguration {
     private static final String BUNDLE_DIRECTORY = "bundle/";
 
     @Inject
-    private ChannelListener listener;
+    private List<SelfRegisteringServiceListener> listeners;
 
     @Inject
     private Framework osgiFramework;
@@ -48,22 +48,28 @@ public class OSGiConfiguration {
     @PostConstruct
     public void init() {
         logger.info("Initializing OSGi Framework...");
-
         try {
-            osgiFramework.start();
+            osgiFramework.init();
         } catch (BundleException e) {
             logger.error("Error while initializing OSGi Framework", e);
             throw new RuntimeException(e);
         }
 
-        try {
-            osgiFramework.getBundleContext().addServiceListener(listener, "(objectClass=io.lavoisier.api.Channel)");
-        } catch (InvalidSyntaxException e) {
-            logger.error("Error while registering channel service listener", e);
+        logger.debug("Registering service listeners...");
+        for(SelfRegisteringServiceListener listener : listeners) {
+            listener.start(osgiFramework.getBundleContext());
         }
-        listener.start(osgiFramework.getBundleContext());
 
+        logger.debug("Starting all system bundles...");
         startAllBundlesInDirectory(BUNDLE_DIRECTORY, osgiFramework.getBundleContext());
+
+        logger.info("Starting OSGi Framework...");
+        try {
+            osgiFramework.start();
+        } catch (BundleException e) {
+            logger.error("Error while starting OSGi Framework", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @PreDestroy

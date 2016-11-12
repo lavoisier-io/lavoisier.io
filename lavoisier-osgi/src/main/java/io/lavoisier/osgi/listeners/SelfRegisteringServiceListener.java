@@ -15,16 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.lavoisier.osgi.listeners;
 
-package io.lavoisier.core;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceListener;
 
-import io.lavoisier.core.channel.xml.Channel;
-
-import java.util.Collection;
-
-public interface ChannelDescriptorRepository {
-
-    Collection<Channel> getAllChannels();
-
-    Channel getChannel(String channelId);
+public interface SelfRegisteringServiceListener extends ServiceListener {
+    void start(BundleContext bundleContext);
 }

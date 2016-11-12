@@ -16,13 +16,14 @@
  * limitations under the License.
  */
 
-package io.lavoisier.osgi.utils;
+package io.lavoisier.osgi.logging;
 
 import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ import java.util.Map;
  * The Slf4jLoggingAdaptor converts the LogEntry objects it receives into calls to the
  * slf4j loggers.
  */
+@Component
 public class Slf4jLoggingAdaptor implements LogListener {
 
     private Map<Long, Logger> loggers = new HashMap<Long, Logger>();

@@ -18,7 +18,6 @@
 package io.lavoisier.osgi.felix;
 
 import io.lavoisier.api.Channel;
-import io.lavoisier.osgi.HostActivator;
 import org.apache.felix.fileinstall.internal.DirectoryWatcher;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.util.FelixConstants;
@@ -39,20 +38,16 @@ public class FelixFrameworkConfiguration {
 
     private static final String CHANNEL_BUNDLE_DIRECTORY = "channel/";
 
-    @Inject
-    private HostActivator hostActivator;
-
     @Bean
     public Framework felix() {
-        return new Felix(config(hostActivator));
+        return new Felix(config());
     }
 
-    private static Map<String, Object> config(HostActivator hostActivator) {
+    private static Map<String, Object> config() {
         Map<String, Object> config = new HashMap<>();
         config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
         config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
         config.put(FelixConstants.LOG_LEVEL_PROP, "3");
-        config.put(FelixConstants.SYSTEMBUNDLE_ACTIVATORS_PROP, Arrays.asList(hostActivator));
         config.put(DirectoryWatcher.DIR, CHANNEL_BUNDLE_DIRECTORY);
         return config;
     }

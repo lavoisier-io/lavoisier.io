@@ -16,54 +16,53 @@
  * limitations under the License.
  */
 
-package io.lavoisier.osgi;
+package io.lavoisier.osgi.listeners.impl;
 
 import io.lavoisier.api.Channel;
-import org.osgi.framework.*;
+import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceEvent;
+import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.InputStream;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class ChannelListener implements ServiceListener {
+public class ChannelRegistry implements SelfRegisteringServiceListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChannelListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChannelRegistry.class);
 
-    private Map<String, io.lavoisier.core.channel.xml.Channel> channels = new ConcurrentHashMap<>();
+    private Map<String, ServiceReference<Channel>> channels = new ConcurrentHashMap<>();
 
     private BundleContext bundleContext;
 
+    @Override
     public void start(BundleContext context) {
         this.bundleContext = context;
-        Collection<ServiceReference<Channel>> serviceReferences = Collections.emptyList();
+        // Registering this ServiceListener
+        try {
+            context.addServiceListener(this, "(objectClass=io.lavoisier.api.Channel)");
+        } catch (InvalidSyntaxException e) {
+            logger.error("Error while registering channel service listener", e);
+            throw new RuntimeException(e);
+        }
+
+        // Registering all existing Channel instances
+        Collection<ServiceReference<Channel>> serviceReferences;
         try {
             serviceReferences = context.getServiceReferences(Channel.class, null);
         } catch (InvalidSyntaxException e) {
-            //filter is null, no SyntaxException should be thrown
+            //filter is null, no InvalidSyntaxException should be thrown
             throw new RuntimeException(e);
         }
         for(ServiceReference<Channel> serviceReference : serviceReferences) {
-            Channel service = context.getService(serviceReference);
-            channels.put((String) serviceReference.getProperty("id"), unmarshall(service.getDescriptor()));
-            context.ungetService(serviceReference);
+            channels.put((String) serviceReference.getProperty("id"), serviceReference);
         }
-    }
-
-    public Collection<io.lavoisier.core.channel.xml.Channel> getAllChannels() {
-        return channels.values();
-    }
-
-    public io.lavoisier.core.channel.xml.Channel getChannel(String id) {
-        return channels.get(id);
     }
 
     @Override
@@ -71,19 +70,31 @@ public class ChannelListener implements ServiceListener {
         switch (event.getType()) {
             case ServiceEvent.REGISTERED:
             case ServiceEvent.MODIFIED:
-            case ServiceEvent.MODIFIED_ENDMATCH:
+                // New or modified service, registering it (overwriting the previous one if needed)
                 ServiceReference<Channel> serviceReference = (ServiceReference<Channel>) event.getServiceReference();
-                Channel service = bundleContext.getService(serviceReference);
-                channels.put((String) serviceReference.getProperty("id"), unmarshall(service.getDescriptor()));
-                bundleContext.ungetService(serviceReference);
+                channels.put((String) serviceReference.getProperty("id"), serviceReference);
                 break;
+            case ServiceEvent.MODIFIED_ENDMATCH:
             case ServiceEvent.UNREGISTERING:
+                // Removing unregistered services
                 channels.remove(event.getServiceReference().getProperty("id"));
                 break;
         }
     }
 
-    private io.lavoisier.core.channel.xml.Channel unmarshall(InputStream descriptor) {
+    public Channel getChannel(String id) {
+        return bundleContext.getService(channels.get(id));
+    }
+
+    public boolean ungetChannel(String id) {
+        return bundleContext.ungetService(channels.get(id));
+    }
+
+    public Collection<String> getAvailableChannels() {
+        return channels.keySet();
+    }
+
+    /*private io.lavoisier.core.channel.xml.Channel unmarshall(InputStream descriptor) {
         try {
             JAXBContext context = JAXBContext.newInstance(io.lavoisier.core.channel.xml.Channel.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -94,5 +105,5 @@ public class ChannelListener implements ServiceListener {
             logger.warn("Error while reading descriptor", e);
             return null;
         }
-    }
+    }*/
 }
