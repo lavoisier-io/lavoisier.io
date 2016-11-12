@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package io.lavoisier.core.osgi;
+package io.lavoisier.osgi;
 
 import io.lavoisier.api.Channel;
 import org.osgi.framework.*;

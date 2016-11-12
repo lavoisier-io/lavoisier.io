@@ -16,25 +16,13 @@
  * limitations under the License.
  */
 
-package io.lavoisier.core.osgi;
+package io.lavoisier.osgi;
 
 import io.lavoisier.core.ChannelDescriptorRepository;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.InvalidSyntaxException;
-import org.osgi.framework.launch.Framework;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.inject.Inject;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Component
 public class ChannelDescriptorRepositoryImpl implements ChannelDescriptorRepository {

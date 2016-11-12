@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-package io.lavoisier.core.osgi;
+package io.lavoisier.osgi;
 
-import io.lavoisier.core.osgi.utils.Slf4jLoggingAdaptor;
+import io.lavoisier.osgi.utils.Slf4jLoggingAdaptor;
 import org.osgi.framework.*;
 import org.osgi.service.log.LogReaderService;
 import org.slf4j.Logger;

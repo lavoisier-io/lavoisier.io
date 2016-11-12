@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package io.lavoisier.core.osgi.utils;
+package io.lavoisier.osgi.utils;
 
 import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogListener;
