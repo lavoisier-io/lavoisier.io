@@ -25,6 +25,7 @@ import org.osgi.framework.launch.Framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -37,13 +38,14 @@ import java.util.List;
 public class OSGiConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(OSGiConfiguration.class);
 
-    private static final String BUNDLE_DIRECTORY = "bundle/";
-
     @Inject
     private List<SelfRegisteringServiceListener> listeners;
 
     @Inject
     private Framework osgiFramework;
+
+    @Inject
+    private Environment env;
 
     @PostConstruct
     public void init() {
@@ -61,7 +63,7 @@ public class OSGiConfiguration {
         }
 
         logger.debug("Starting all system bundles...");
-        startAllBundlesInDirectory(BUNDLE_DIRECTORY, osgiFramework.getBundleContext());
+        startAllBundlesInDirectory(env.getProperty("lavoisier.osgi.system-bundles-directory"), osgiFramework.getBundleContext());
 
         logger.info("Starting OSGi Framework...");
         try {

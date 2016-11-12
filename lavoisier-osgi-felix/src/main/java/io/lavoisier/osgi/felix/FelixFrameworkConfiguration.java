@@ -26,9 +26,9 @@ import org.osgi.framework.launch.Framework;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,19 +36,20 @@ import java.util.Map;
 @Profile("felix")
 public class FelixFrameworkConfiguration {
 
-    private static final String CHANNEL_BUNDLE_DIRECTORY = "channel/";
+    @Inject
+    private Environment env;
 
     @Bean
     public Framework felix() {
         return new Felix(config());
     }
 
-    private static Map<String, Object> config() {
+    private Map<String, Object> config() {
         Map<String, Object> config = new HashMap<>();
         config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
         config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
         config.put(FelixConstants.LOG_LEVEL_PROP, "3");
-        config.put(DirectoryWatcher.DIR, CHANNEL_BUNDLE_DIRECTORY);
+        config.put(DirectoryWatcher.DIR, env.getProperty("lavoisier.osgi.channel-bundles-directory"));
         return config;
     }
 }
