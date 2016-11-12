@@ -58,24 +58,28 @@
     </properties>
 
     <modules>
-        <module>lavoisier-xml</module>
-        <module>lavoisier-channel-api</module>
-        <module>lavoisier-model</module>
-        <module>lavoisier-persistence-api</module>
-        <module>lavoisier-persistence-jpa</module>
-        <module>lavoisier-core</module>
-        <module>lavoisier-osgi</module>
-        <module>lavoisier-osgi-felix</module>
         <module>lavoisier-app</module>
         <module>lavoisier-assembly</module>
+        <module>lavoisier-channel-api</module>
+        <module>lavoisier-model</module>
+        <module>lavoisier-osgi</module>
+        <module>lavoisier-osgi-felix</module>
+        <module>lavoisier-persistence-api</module>
+        <module>lavoisier-persistence-jpa</module>
+        <module>lavoisier-xml</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Inter modules Dependencies -->
+            <!-- Align inter modules dependencies to the same version-->
             <dependency>
                 <groupId>io.lavoisier</groupId>
-                <artifactId>lavoisier-xml</artifactId>
+                <artifactId>lavoisier-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.lavoisier</groupId>
+                <artifactId>lavoisier-assembly</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -90,21 +94,6 @@
             </dependency>
             <dependency>
                 <groupId>io.lavoisier</groupId>
-                <artifactId>lavoisier-persistence-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.lavoisier</groupId>
-                <artifactId>lavoisier-persistence-jpa</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.lavoisier</groupId>
-                <artifactId>lavoisier-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.lavoisier</groupId>
                 <artifactId>lavoisier-osgi</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -115,7 +104,17 @@
             </dependency>
             <dependency>
                 <groupId>io.lavoisier</groupId>
-                <artifactId>lavoisier-app</artifactId>
+                <artifactId>lavoisier-persistence-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.lavoisier</groupId>
+                <artifactId>lavoisier-persistence-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.lavoisier</groupId>
+                <artifactId>lavoisier-xml</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
