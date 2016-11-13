@@ -1,6 +1,6 @@
 rootProject.name = 'lavoisier-parent'
 include ':lavoisier-app'
-include ':lavoisier-assembly'
+include ':lavoisier-distribution'
 include ':lavoisier-channel-api'
 include ':lavoisier-model'
 include ':lavoisier-osgi'
@@ -10,7 +10,7 @@ include ':lavoisier-persistence-jpa'
 include ':lavoisier-xml'
 
 project(':lavoisier-app').projectDir = "$rootDir/lavoisier-app" as File
-project(':lavoisier-assembly').projectDir = "$rootDir/lavoisier-assembly" as File
+project(':lavoisier-distribution').projectDir = "$rootDir/lavoisier-assembly" as File
 project(':lavoisier-channel-api').projectDir = "$rootDir/lavoisier-channel-api" as File
 project(':lavoisier-model').projectDir = "$rootDir/lavoisier-model" as File
 project(':lavoisier-osgi').projectDir = "$rootDir/lavoisier-osgi" as File
