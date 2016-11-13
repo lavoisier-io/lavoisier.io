@@ -1,0 +1,23 @@
+buildscript {
+  dependencies {
+    classpath(lavoisierDependencies.springBootGradlePlugin)
+  }
+}
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+  compile project(':lavoisier-osgi')
+  compile project(':lavoisier-osgi-felix')
+
+  compile(lavoisierDependencies.springBootStarter) {
+    exclude(module: 'commons-logging')
+  }
+}
+
+processResources {
+  expand(project.properties)
+}
+
+bootRepackage {
+  mainClass = 'io.lavoisier.LavoisierApplication'
+}

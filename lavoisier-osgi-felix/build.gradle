@@ -1,0 +1,12 @@
+description = 'Lavoisier OSGI implementation using Felix'
+
+dependencies {
+  compile project(':lavoisier-osgi')
+  compile lavoisierDependencies.felixFramework
+  compile lavoisierDependencies.felixLog
+  compile lavoisierDependencies.felixFileInstall
+  compile(lavoisierDependencies.springContext) {
+    exclude(module: 'commons-logging')
+  }
+  compile lavoisierDependencies.javaxInject
+}

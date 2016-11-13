@@ -1,0 +1,34 @@
+apply plugin: 'distribution'
+
+configurations {
+  systemBundle
+}
+
+dependencies {
+  runtime project(':lavoisier-app')
+
+  systemBundle(lavoisierDependencies.felixLog) {
+    exclude(module: 'org.osgi.core')
+    exclude(module: 'org.osgi.compendium')
+  }
+  systemBundle(lavoisierDependencies.felixFileInstall) {
+    exclude(module: 'org.osgi.core')
+    exclude(module: 'org.osgi.compendium')
+  }
+}
+
+distributions {
+  main {
+    baseName = 'lavoisier'
+    contents {
+      into('bundle') {
+        from(project.configurations.systemBundle)
+      }
+      from('../INSTALL')
+      from('../LICENSE')
+      from('../README.md')
+      from(project(':lavoisier-app').buildDir.toString() + "/libs/lavoisier-app-0.0.1-SNAPSHOT.jar")
+      from(project(':lavoisier-app').buildDir.toString() + "/resources/main/application.properties")
+    }
+  }
+}

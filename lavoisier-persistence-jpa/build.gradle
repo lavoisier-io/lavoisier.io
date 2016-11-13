@@ -1,0 +1,10 @@
+dependencies {
+  compile project(':lavoisier-model')
+  compile project(':lavoisier-persistence-api')
+
+  compile lavoisierDependencies.springBootStarterDataJpa
+  compile lavoisierDependencies.springContext
+
+  compile lavoisierDependencies.javaxInject
+  compile lavoisierDependencies.querydslJpa
+}

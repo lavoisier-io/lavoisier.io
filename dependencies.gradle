@@ -1,0 +1,35 @@
+ext {
+  springBootVersion = '1.4.2.RELEASE'
+  springVersion = '4.3.3.RELEASE'
+  osgiVersion = '5.0.0'
+
+  lavoisierDependencies = [
+          springBootStarter             : "org.springframework.boot:spring-boot-starter:${springBootVersion}",
+          springBootStarterDataJpa      : "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}",
+          springBootGradlePlugin        : "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}",
+
+          springContext                 : "org.springframework:spring-context:${springVersion}",
+          springOrm                     : "org.springframework:spring-orm:${springVersion}",
+
+          querydslJpa                   : "com.querydsl:querydsl-jpa:4.1.4",
+          querydslApt                   : "com.querydsl:querydsl-apt:4.1.4",
+          querydslGradlePlugin          : "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.7",
+
+          liquibase                     : "org.liquibase:liquibase-core:3.5.1",
+          liquibaseHibernate            : "org.liquibase.ext:liquibase-hibernate5:3.6",
+          liquibaseGradlePlugin         : "org.liquibase:liquibase-gradle-plugin:1.2.1",
+
+          postgresql                    :"org.postgresql:postgresql:9.4.1211",
+
+          javaxInject                   : "javax.inject:javax.inject:1",
+
+          slf4jApi                      : "org.slf4j:slf4j-api:1.7.21",
+
+          osgiCompendium                : "org.osgi:org.osgi.compendium:${osgiVersion}",
+          osgiCore                      : "org.osgi:org.osgi.core:${osgiVersion}",
+
+          felixFramework                : "org.apache.felix:org.apache.felix.framework:5.6.1",
+          felixLog                      : "org.apache.felix:org.apache.felix.log:1.0.1",
+          felixFileInstall              : "org.apache.felix:org.apache.felix.fileinstall:3.5.6",
+  ]
+}

@@ -1,0 +1,43 @@
+buildscript {
+  dependencies {
+    classpath lavoisierDependencies.liquibaseGradlePlugin
+    classpath lavoisierDependencies.liquibaseHibernate
+    classpath lavoisierDependencies.springBootStarterDataJpa
+    classpath lavoisierDependencies.postgresql
+    classpath lavoisierDependencies.querydslGradlePlugin
+    classpath files('build/classes/main/')
+  }
+}
+
+apply plugin: 'org.liquibase.gradle'
+apply plugin: "com.ewerk.gradle.plugins.querydsl"
+
+apply from: 'database.gradle'
+
+liquibase {
+  activities {
+    main {
+      changeLogFile projectDir.toString() + '/src/main/resources/db/changelog/db.changelog-master.xml'
+      url database.url
+      username database.username
+      password database.password
+      referenceDriver 'liquibase.ext.hibernate.database.connection.HibernateDriver'
+      referenceUrl 'hibernate:spring:io.lavoisier.model?dialect=org.hibernate.dialect.PostgreSQL9Dialect'
+    }
+  }
+  runList = 'main'
+}
+
+querydsl {
+  library lavoisierDependencies.querydslApt
+  querydslSourcesDir "${buildDir}/generated-sources"
+  jpa true
+}
+
+dependencies {
+    compile lavoisierDependencies.springBootStarterDataJpa
+    compile lavoisierDependencies.querydslJpa
+    compile lavoisierDependencies.liquibase
+
+    runtime lavoisierDependencies.postgresql
+}
