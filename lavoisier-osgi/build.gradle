@@ -1,5 +1,5 @@
 dependencies {
-  compile project(':lavoisier-xml')
+  compile project(':lavoisier-schema')
   compile project(':lavoisier-channel-api')
 
   compile(lavoisierDependencies.springContext) {

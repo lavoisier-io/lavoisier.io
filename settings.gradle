@@ -7,14 +7,14 @@ include ':lavoisier-osgi'
 include ':lavoisier-osgi-felix'
 include ':lavoisier-persistence-api'
 include ':lavoisier-persistence-jpa'
-include ':lavoisier-xml'
+include ':lavoisier-schema'
 
 project(':lavoisier-app').projectDir = "$rootDir/lavoisier-app" as File
-project(':lavoisier-distribution').projectDir = "$rootDir/lavoisier-assembly" as File
+project(':lavoisier-distribution').projectDir = "$rootDir/lavoisier-distribution" as File
 project(':lavoisier-channel-api').projectDir = "$rootDir/lavoisier-channel-api" as File
 project(':lavoisier-model').projectDir = "$rootDir/lavoisier-model" as File
 project(':lavoisier-osgi').projectDir = "$rootDir/lavoisier-osgi" as File
 project(':lavoisier-osgi-felix').projectDir = "$rootDir/lavoisier-osgi-felix" as File
 project(':lavoisier-persistence-api').projectDir = "$rootDir/lavoisier-persistence-api" as File
 project(':lavoisier-persistence-jpa').projectDir = "$rootDir/lavoisier-persistence-jpa" as File
-project(':lavoisier-xml').projectDir = "$rootDir/lavoisier-xml" as File
+project(':lavoisier-schema').projectDir = "$rootDir/lavoisier-schema" as File

@@ -20,7 +20,7 @@
            elementFormDefault="qualified"
            targetNamespace="http://www.lavoisier.io" xmlns="http://www.lavoisier.io">
 
-    <xs:element name="channel">
+    <xs:element name="channelDescriptor">
         <xs:complexType>
             <xs:annotation>
                 <xs:documentation>
@@ -74,7 +74,7 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="sparks" type="sparks">
+                <xs:element name="sparks" type="sparkDescriptors">
                     <xs:annotation>
                         <xs:documentation>
                             The list of sparks exposed by this channel. A spark is an external event triggering a
@@ -82,7 +82,7 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="conditions" type="conditions">
+                <xs:element name="conditions" type="conditionDescriptors">
                     <xs:annotation>
                         <xs:documentation>
                             The list of conditions exposed by this channel. A condition must be met for a reaction to
@@ -90,14 +90,14 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="fuels" type="fuels">
+                <xs:element name="fuels" type="fuelDescriptors">
                     <xs:annotation>
                         <xs:documentation>
                             Fuel is data used by a reaction to produce an action.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="actions" type="actions">
+                <xs:element name="actions" type="actionDescriptors">
                     <xs:annotation>
                         <xs:documentation>
                             The list of actions exposed by this channel. The actions will be executed when spark happens
@@ -109,7 +109,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="spark">
+    <xs:complexType name="sparkDescriptor">
         <xs:annotation>
             <xs:documentation>
                 A spark is an external event triggering a reaction.
@@ -154,13 +154,13 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="sparks">
+    <xs:complexType name="sparkDescriptors">
         <xs:sequence>
-            <xs:element name="spark" type="spark" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="spark" type="sparkDescriptor" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="condition">
+    <xs:complexType name="conditionDescriptor">
         <xs:annotation>
             <xs:documentation>
                 A condition must be met for a reaction to happen.
@@ -198,13 +198,13 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="conditions">
+    <xs:complexType name="conditionDescriptors">
         <xs:sequence>
-            <xs:element name="condition" type="condition" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="condition" type="conditionDescriptor" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="fuel">
+    <xs:complexType name="fuelDescriptor">
         <xs:annotation>
             <xs:documentation>
                 Fuel is data used by a reaction to produce an action.
@@ -249,13 +249,13 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="fuels">
+    <xs:complexType name="fuelDescriptors">
         <xs:sequence>
-            <xs:element name="fuel" type="fuel" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="fuel" type="fuelDescriptor" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="action">
+    <xs:complexType name="actionDescriptor">
         <xs:annotation>
             <xs:documentation>
                 An action is something to be done in reaction to a trigger when conditions are met.
@@ -293,9 +293,9 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="actions">
+    <xs:complexType name="actionDescriptors">
         <xs:sequence>
-            <xs:element name="action" type="action" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="action" type="actionDescriptor" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
 

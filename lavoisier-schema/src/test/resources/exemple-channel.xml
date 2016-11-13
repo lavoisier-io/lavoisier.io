@@ -17,7 +17,7 @@
   ~ limitations under the License.
   -->
 
-<channel xmlns="http://www.lavoisier.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lavoisier.io channel.xsd">
+<channelDescriptor xmlns="http://www.lavoisier.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lavoisier.io channel.xsd">
     <id>io.lavoisier.channel.twitter</id>
     <name>Twitter</name>
     <description>Connect to the famous Twitter social network!</description>
@@ -95,4 +95,4 @@
             </input>
         </action>
     </actions>
-</channel>
+</channelDescriptor>
