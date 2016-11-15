@@ -1,4 +1,4 @@
-rootProject.name = 'lavoisier-parent'
+rootProject.name = 'lavoisier'
 include ':lavoisier-app'
 include ':lavoisier-distribution'
 include ':lavoisier-channel-api'
