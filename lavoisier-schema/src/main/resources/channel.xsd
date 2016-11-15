@@ -258,7 +258,7 @@
     <xs:complexType name="actionDescriptor">
         <xs:annotation>
             <xs:documentation>
-                An action is something to be done in reaction to a trigger when conditions are met.
+                An action is something to be done in reaction to a spark when conditions are met.
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
