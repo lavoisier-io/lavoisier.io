@@ -18,6 +18,7 @@
 
 package io.lavoisier.model;
 
+import io.lavoisier.model.spark.Spark;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -50,7 +51,7 @@ public class Reaction {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "rea_trigger_id", nullable = false)
-    private Trigger trigger;
+    private Spark spark;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "rea_action_id", nullable = false)
@@ -93,12 +94,12 @@ public class Reaction {
         this.user = user;
     }
 
-    public Trigger getTrigger() {
-        return trigger;
+    public Spark getSpark() {
+        return spark;
     }
 
-    public void setTrigger(Trigger trigger) {
-        this.trigger = trigger;
+    public void setSpark(Spark spark) {
+        this.spark = spark;
     }
 
     public Action getAction() {

@@ -16,12 +16,22 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.spark;
 
-import io.lavoisier.model.spark.Spark;
-import org.springframework.data.repository.CrudRepository;
+import io.lavoisier.model.enumerated.ParameterType;
+import io.lavoisier.model.spark.pk.SparkParamPk;
+import lombok.Data;
 
-import java.util.UUID;
+import javax.persistence.*;
 
-public interface TriggerRepository extends CrudRepository<Spark, UUID> {
+@Entity
+@Table(name = "lav_spark_output")
+@Data
+public class SparkOutput {
+    @EmbeddedId
+    private SparkParamPk id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 10)
+    private ParameterType type;
 }

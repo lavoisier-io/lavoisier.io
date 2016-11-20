@@ -16,12 +16,22 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.fuel;
 
-import io.lavoisier.model.spark.Spark;
-import org.springframework.data.repository.CrudRepository;
+import javax.persistence.*;
 
-import java.util.UUID;
+import io.lavoisier.model.enumerated.ParameterType;
+import io.lavoisier.model.fuel.pk.FuelParamPk;
+import lombok.Data;
 
-public interface TriggerRepository extends CrudRepository<Spark, UUID> {
+@Entity
+@Table(name = "lav_fuel_input")
+@Data
+public class FuelInput {
+    @EmbeddedId
+    private FuelParamPk id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 10)
+    private ParameterType type;
 }

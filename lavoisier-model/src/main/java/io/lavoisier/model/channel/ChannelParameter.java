@@ -16,12 +16,30 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.channel;
 
-import io.lavoisier.model.spark.Spark;
-import org.springframework.data.repository.CrudRepository;
+import io.lavoisier.model.channel.pk.ChannelParameterPk;
+import io.lavoisier.model.enumerated.ParameterType;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.UUID;
 
-public interface TriggerRepository extends CrudRepository<Spark, UUID> {
+@Entity
+@Table(name = "lav_channel_parameter")
+@Data
+public class ChannelParameter {
+    @EmbeddedId
+    private ChannelParameterPk id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 10)
+    private ParameterType type;
+
+    @Column(name = "value")
+    @Lob
+    @Type(type = "org.hibernate.type.StringType")
+    private String value;
 }

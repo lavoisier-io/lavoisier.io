@@ -10,7 +10,7 @@ buildscript {
 }
 
 apply plugin: 'org.liquibase.gradle'
-apply plugin: "com.ewerk.gradle.plugins.querydsl"
+apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 
 apply from: 'database.gradle'
 
@@ -39,5 +39,17 @@ dependencies {
     compile lavoisierDependencies.querydslJpa
     compile lavoisierDependencies.liquibase
 
+    compile lavoisierDependencies.lombok
+
     runtime lavoisierDependencies.postgresql
+}
+
+// The following is a work around to make QueryDSL plugin works with Lombok
+// See: https://github.com/ewerk/gradle-plugins/issues/59
+project.afterEvaluate {
+  project.tasks.compileQuerydsl.options.compilerArgs = [
+    "-proc:only",
+    "-processor", project.querydsl.processors() +
+      ',lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
+  ]
 }

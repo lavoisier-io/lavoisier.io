@@ -18,6 +18,7 @@
 
 package io.lavoisier.model;
 
+import io.lavoisier.model.channel.Channel;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 

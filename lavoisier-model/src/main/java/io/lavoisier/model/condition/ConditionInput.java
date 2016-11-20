@@ -16,12 +16,22 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.condition;
 
-import io.lavoisier.model.spark.Spark;
-import org.springframework.data.repository.CrudRepository;
+import io.lavoisier.model.condition.pk.ConditionInputPk;
+import io.lavoisier.model.enumerated.ParameterType;
+import lombok.Data;
 
-import java.util.UUID;
+import javax.persistence.*;
 
-public interface TriggerRepository extends CrudRepository<Spark, UUID> {
+@Entity
+@Table(name = "lav_condition_input")
+@Data
+public class ConditionInput {
+    @EmbeddedId
+    private ConditionInputPk id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 10)
+    private ParameterType type;
 }

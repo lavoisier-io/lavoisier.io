@@ -16,12 +16,18 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.condition.pk;
 
-import io.lavoisier.model.spark.Spark;
-import org.springframework.data.repository.CrudRepository;
+import java.io.Serializable;
 
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
-public interface TriggerRepository extends CrudRepository<Spark, UUID> {
+import lombok.Data;
+
+@Embeddable
+@Data
+public class ConditionInputPk extends ConditionPk implements Serializable {
+    @Column(name = "key", nullable = false, length = 64)
+    private String key;
 }

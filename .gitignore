@@ -8,4 +8,4 @@ build/
 *.iml
 bundle/
 felix-cache/
-channel/
+./channel/

@@ -16,52 +16,44 @@
  * limitations under the License.
  */
 
-package io.lavoisier.model;
+package io.lavoisier.model.spark;
 
+import io.lavoisier.model.channel.Channel;
+import io.lavoisier.model.channel.ChannelParameter;
+import io.lavoisier.model.spark.pk.SparkPk;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 /**
- * A system wide channel parameter
+ * The database representation of a Condition
  */
 @Entity
-@Table(name = "lav_channel_parameter")
-public class ChannelParameter {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "cpr_id")
-    @Type(type = "pg-uuid")
-    private UUID id;
+@Table(name = "lav_spark")
+@Data
+public class Spark {
+    @EmbeddedId
+    private SparkPk id;
 
-    @Column(name = "cpr_name", nullable = false, length = 256)
+    @ManyToOne(optional = false)
+    @MapsId("channelId")
+    private Channel channel;
+
+    @Column(name = "name", nullable = false, length = 64)
     private String name;
 
-    @Column(name = "cpr_value", nullable = false)
-    @Lob
-    @Type(type = "org.hibernate.type.StringType")
-    private String value;
+    @Column(name = "description", nullable = false, length = 256)
+    private String description;
 
-    public UUID getId() {
-        return id;
-    }
+    @OneToMany
+    @JoinColumn(name = "key")
+    private List<SparkInput> inputs;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
+    @OneToMany
+    @JoinColumn(name = "key")
+    private List<SparkOutput> outputs;
 }

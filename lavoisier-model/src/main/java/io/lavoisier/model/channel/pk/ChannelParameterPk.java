@@ -16,12 +16,21 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.channel.pk;
 
-import io.lavoisier.model.spark.Spark;
-import org.springframework.data.repository.CrudRepository;
+import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.UUID;
 
-public interface TriggerRepository extends CrudRepository<Spark, UUID> {
+@Embeddable
+@Data
+public class ChannelParameterPk implements Serializable {
+    @Column(name = "channel_id", nullable = false, length = 64)
+    private String channelId;
+
+    @Column(name = "key", nullable = false, length = 64)
+    private String key;
 }

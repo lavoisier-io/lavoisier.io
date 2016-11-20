@@ -16,12 +16,38 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.fuel;
+
+import java.util.List;
+
+import javax.persistence.*;
 
 import io.lavoisier.model.channel.Channel;
-import org.springframework.data.repository.CrudRepository;
+import io.lavoisier.model.fuel.pk.FuelPk;
+import lombok.Data;
 
-import java.util.UUID;
+@Entity
+@Table(name = "lav_fuel")
+@Data
+public class Fuel {
+    @EmbeddedId
+    private FuelPk id;
 
-public interface ChannelRepository extends CrudRepository<Channel, UUID> {
+    @ManyToOne(optional = false)
+    @MapsId("channelId")
+    private Channel channel;
+
+    @Column(name = "name", nullable = false, length = 64)
+    private String name;
+
+    @Column(name = "description", nullable = false, length = 256)
+    private String description;
+
+    @OneToMany
+    @JoinColumn(name = "key")
+    private List<FuelInput> inputs;
+
+    @OneToMany
+    @JoinColumn(name = "key")
+    private List<FuelOutput> outputs;
 }

@@ -16,12 +16,33 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.condition;
 
 import io.lavoisier.model.channel.Channel;
-import org.springframework.data.repository.CrudRepository;
+import io.lavoisier.model.condition.pk.ConditionPk;
+import lombok.Data;
 
-import java.util.UUID;
+import javax.persistence.*;
+import java.util.List;
 
-public interface ChannelRepository extends CrudRepository<Channel, UUID> {
+@Entity
+@Table(name = "lav_condition")
+@Data
+public class Condition {
+    @EmbeddedId
+    private ConditionPk id;
+
+    @ManyToOne(optional = false)
+    @MapsId("channelId")
+    private Channel channel;
+
+    @Column(name = "name", nullable = false, length = 64)
+    private String name;
+
+    @Column(name = "description", nullable = false, length = 256)
+    private String description;
+
+    @OneToMany
+    @JoinColumn(name = "key")
+    private List<ConditionInput> inputs;
 }

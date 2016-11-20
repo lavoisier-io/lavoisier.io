@@ -16,12 +16,17 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.spark.pk;
 
-import io.lavoisier.model.spark.Spark;
-import org.springframework.data.repository.CrudRepository;
+import lombok.Data;
 
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
-public interface TriggerRepository extends CrudRepository<Spark, UUID> {
+@Embeddable
+@Data
+public class SparkParamPk extends SparkPk implements Serializable {
+    @Column(name = "key", nullable = false, length = 64)
+    private String key;
 }

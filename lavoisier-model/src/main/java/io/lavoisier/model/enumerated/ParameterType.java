@@ -15,13 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.lavoisier.model.enumerated;
 
-package io.lavoidier.persistence.api;
-
-import io.lavoisier.model.spark.Spark;
-import org.springframework.data.repository.CrudRepository;
-
-import java.util.UUID;
-
-public interface TriggerRepository extends CrudRepository<Spark, UUID> {
+public enum ParameterType {
+    STRING,
+    TEXT,
+    DATE,
+    NUMBER,
+    FILE,
+    IMAGE_FILE,
+    URL;
 }
