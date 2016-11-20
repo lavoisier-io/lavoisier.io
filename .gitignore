@@ -9,3 +9,4 @@ build/
 bundle/
 felix-cache/
 ./channel/
+.DS_Store
