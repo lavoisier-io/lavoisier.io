@@ -27,7 +27,13 @@ import lombok.Data;
 
 @Embeddable
 @Data
-public class FuelParamPk extends FuelPk implements Serializable {
+public class FuelParamPk implements Serializable {
+    @Column(name = "channel_id", nullable = false, length = 64)
+    private String channelId;
+
+    @Column(name = "fuel_id", nullable = false, length = 64)
+    private String fuelId;
+
     @Column(name = "key", nullable = false, length = 64)
     private String key;
 }

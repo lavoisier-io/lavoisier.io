@@ -16,12 +16,22 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.action;
 
-import io.lavoisier.model.reaction.ReactionLog;
-import org.springframework.data.repository.CrudRepository;
+import io.lavoisier.model.action.pk.ActionInputPk;
+import io.lavoisier.model.enumerated.ParameterType;
+import lombok.Data;
 
-import java.util.UUID;
+import javax.persistence.*;
 
-public interface ReactionLogRepository extends CrudRepository<ReactionLog, UUID> {
+@Entity
+@Table(name = "lav_action_input")
+@Data
+public class ActionInput {
+    @EmbeddedId
+    private ActionInputPk id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 10)
+    private ParameterType type;
 }

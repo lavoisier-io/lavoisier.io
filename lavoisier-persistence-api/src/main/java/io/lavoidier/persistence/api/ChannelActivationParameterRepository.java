@@ -18,7 +18,7 @@
 
 package io.lavoidier.persistence.api;
 
-import io.lavoisier.model.ChannelActivationParameter;
+import io.lavoisier.model.channel.ChannelActivationParameter;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;

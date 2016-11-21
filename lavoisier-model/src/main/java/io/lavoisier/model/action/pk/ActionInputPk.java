@@ -16,12 +16,23 @@
  * limitations under the License.
  */
 
-package io.lavoidier.persistence.api;
+package io.lavoisier.model.action.pk;
 
-import io.lavoisier.model.reaction.ReactionLog;
-import org.springframework.data.repository.CrudRepository;
+import lombok.Data;
 
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
-public interface ReactionLogRepository extends CrudRepository<ReactionLog, UUID> {
+@Embeddable
+@Data
+public class ActionInputPk implements Serializable {
+    @Column(name = "channel_id", nullable = false, length = 64)
+    private String channelId;
+
+    @Column(name = "action_id", nullable = false, length = 64)
+    private String actionId;
+
+    @Column(name = "key", nullable = false, length = 64)
+    private String key;
 }

@@ -18,7 +18,7 @@
 
 package io.lavoidier.persistence.api;
 
-import io.lavoisier.model.Reaction;
+import io.lavoisier.model.reaction.Reaction;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;

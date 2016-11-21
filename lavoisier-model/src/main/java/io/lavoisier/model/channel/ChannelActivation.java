@@ -16,53 +16,37 @@
  * limitations under the License.
  */
 
-package io.lavoisier.model;
+package io.lavoisier.model.channel;
 
-import io.lavoisier.model.channel.Channel;
+import io.lavoisier.model.account.User;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
-/**
- * The database representation of an Action.
- */
 @Entity
-@Table(name = "lav_action")
-public class Action {
-
+@Table(name = "lav_channel_activation")
+@Data
+public class ChannelActivation {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "act_id")
+    @Column(name = "id")
     @Type(type = "pg-uuid")
     private UUID id;
 
-    @Column(name = "act_name", nullable = false, unique = true, length = 256)
-    private String name;
-
     @ManyToOne(optional = false)
-    @JoinColumn(name = "act_channel_id", nullable = false)
+    @JoinColumn(name = "channel_id", nullable = false)
     private Channel channel;
 
-    public UUID getId() {
-        return id;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id.channelActivationId")
+    //@JoinColumn(name = "channel_activation_id", nullable = false)
+    private List<ChannelActivationParameter> parameters;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

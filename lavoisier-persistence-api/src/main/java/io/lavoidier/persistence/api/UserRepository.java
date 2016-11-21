@@ -18,7 +18,7 @@
 
 package io.lavoidier.persistence.api;
 
-import io.lavoisier.model.User;
+import io.lavoisier.model.account.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;

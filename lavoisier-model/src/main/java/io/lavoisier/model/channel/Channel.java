@@ -18,7 +18,9 @@
 
 package io.lavoisier.model.channel;
 
-import io.lavoisier.model.Action;
+import io.lavoisier.model.action.Action;
+import io.lavoisier.model.condition.Condition;
+import io.lavoisier.model.fuel.Fuel;
 import io.lavoisier.model.spark.Spark;
 import lombok.Data;
 
@@ -31,25 +33,31 @@ import java.util.List;
 public class Channel {
 
     @Id
-    @Column(name = "id", nullable = false, unique = true, length = 64)
+    @Column(name = "id", nullable = false, length = 64)
     private String id;
 
     @Column(name = "name", nullable = false, length = 64)
     private String name;
 
-    @Column(name = "description", nullable = false, length = 256)
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
 
     @Column(name = "version", nullable = false, length = 20)
     private String version;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "channel_id")
     private List<ChannelParameter> parameters;
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Spark> sparks;
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Condition> conditions;
+
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Fuel> fuels;
+
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Action> actions;
 }

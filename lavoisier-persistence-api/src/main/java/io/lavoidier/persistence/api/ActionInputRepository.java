@@ -18,10 +18,11 @@
 
 package io.lavoidier.persistence.api;
 
-import io.lavoisier.model.ActionInput;
+import io.lavoisier.model.action.ActionInput;
+import io.lavoisier.model.action.pk.ActionInputPk;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public interface ActionInputRepository extends CrudRepository<ActionInput, UUID> {
+public interface ActionInputRepository extends CrudRepository<ActionInput, ActionInputPk> {
 }

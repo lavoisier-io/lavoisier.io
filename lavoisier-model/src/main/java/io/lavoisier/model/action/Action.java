@@ -16,25 +16,21 @@
  * limitations under the License.
  */
 
-package io.lavoisier.model.spark;
+package io.lavoisier.model.action;
 
+import io.lavoisier.model.action.pk.ActionPk;
 import io.lavoisier.model.channel.Channel;
-import io.lavoisier.model.channel.ChannelParameter;
-import io.lavoisier.model.spark.pk.SparkPk;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
-@Table(name = "lav_spark")
+@Table(name = "lav_action")
 @Data
-public class Spark {
+public class Action {
     @EmbeddedId
-    private SparkPk id;
+    private ActionPk id;
 
     @ManyToOne(optional = false)
     @MapsId("channelId")
@@ -46,17 +42,10 @@ public class Spark {
     @Column(name = "description", nullable = false, length = 255)
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumns({
         @JoinColumn(name = "channel_id"),
-        @JoinColumn(name = "spark_id")
+        @JoinColumn(name = "action_id")
     })
-    private List<SparkInput> inputs;
-
-    @OneToMany
-    @JoinColumns({
-        @JoinColumn(name = "channel_id"),
-        @JoinColumn(name = "spark_id")
-    })
-    private List<SparkOutput> outputs;
+    private List<ActionInput> inputs;
 }

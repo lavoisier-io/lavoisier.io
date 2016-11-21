@@ -40,14 +40,20 @@ public class Fuel {
     @Column(name = "name", nullable = false, length = 64)
     private String name;
 
-    @Column(name = "description", nullable = false, length = 256)
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
 
     @OneToMany
-    @JoinColumn(name = "key")
+    @JoinColumns({
+        @JoinColumn(name = "channel_id"),
+        @JoinColumn(name = "fuel_id")
+    })
     private List<FuelInput> inputs;
 
     @OneToMany
-    @JoinColumn(name = "key")
+    @JoinColumns({
+        @JoinColumn(name = "channel_id"),
+        @JoinColumn(name = "fuel_id")
+    })
     private List<FuelOutput> outputs;
 }

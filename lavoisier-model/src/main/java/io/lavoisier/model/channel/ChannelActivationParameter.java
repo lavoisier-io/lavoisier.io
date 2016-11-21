@@ -16,50 +16,23 @@
  * limitations under the License.
  */
 
-package io.lavoisier.model;
+package io.lavoisier.model.channel;
 
+import io.lavoisier.model.channel.pk.ChannelActivationParameterPk;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-/**
- * A channel activation parameter
- */
 @Entity
 @Table(name = "lav_channel_activation_parameter")
+@Data
 public class ChannelActivationParameter {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "cap_id")
-    @Type(type = "pg-uuid")
-    private UUID id;
+    @EmbeddedId
+    private ChannelActivationParameterPk id;
 
-    @Column(name = "cap_name", nullable = false, length = 256)
-    private String name;
-
-    @Column(name = "cap_value", nullable = false, length = 256)
+    @Column(name = "value", nullable = false, length = 255)
     private String value;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

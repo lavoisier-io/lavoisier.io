@@ -16,53 +16,34 @@
  * limitations under the License.
  */
 
-package io.lavoisier.model;
+package io.lavoisier.model.reaction;
 
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
-/**
- * Input parameter of an action.
- */
 @Entity
-@Table(name = "lav_action_input")
-public class ActionInput {
-
+@Table(name = "lav_reaction_log")
+@Data
+public class ReactionLog {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "ain_id")
+    @Column(name = "id")
     @Type(type = "pg-uuid")
     private UUID id;
 
-    @Column(name = "ain_name", nullable = false, length = 256)
-    private String name;
+    @Column(name = "execution_date", nullable = false)
+    private LocalDateTime executionDate;
 
-    @Column(name = "ain_value", nullable = false)
-    @Lob
-    @Type(type = "org.hibernate.type.StringType")
-    private String value;
+    @Column(name = "success", nullable = false)
+    private boolean success;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
+    @Column(name = "error_message")
+    private String errorMessage;
 }

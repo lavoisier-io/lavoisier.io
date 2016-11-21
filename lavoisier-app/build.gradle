@@ -8,6 +8,9 @@ apply plugin: 'org.springframework.boot'
 dependencies {
   compile project(':lavoisier-osgi')
   compile project(':lavoisier-osgi-felix')
+  compile project(':lavoisier-model')
+  compile project(':lavoisier-persistence-api')
+  compile project(':lavoisier-persistence-jpa')
 
   compile(lavoisierDependencies.springBootStarter) {
     exclude(module: 'commons-logging')

@@ -26,7 +26,13 @@ import java.io.Serializable;
 
 @Embeddable
 @Data
-public class SparkParamPk extends SparkPk implements Serializable {
+public class SparkParamPk implements Serializable {
+    @Column(name = "channel_id", nullable = false, length = 64)
+    private String channelId;
+
+    @Column(name = "spark_id", nullable = false, length = 64)
+    private String sparkId;
+
     @Column(name = "key", nullable = false, length = 64)
     private String key;
 }

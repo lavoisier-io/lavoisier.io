@@ -23,5 +23,5 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public interface ChannelRepository extends CrudRepository<Channel, UUID> {
+public interface ChannelRepository extends CrudRepository<Channel, String> {
 }

@@ -39,10 +39,13 @@ public class Condition {
     @Column(name = "name", nullable = false, length = 64)
     private String name;
 
-    @Column(name = "description", nullable = false, length = 256)
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
 
     @OneToMany
-    @JoinColumn(name = "key")
+    @JoinColumns({
+        @JoinColumn(name = "channel_id"),
+        @JoinColumn(name = "condition_id")
+    })
     private List<ConditionInput> inputs;
 }
