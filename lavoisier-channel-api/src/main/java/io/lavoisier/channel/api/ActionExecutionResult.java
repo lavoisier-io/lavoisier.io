@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package io.lavoisier.api.model.action;
+package io.lavoisier.channel.api;
 
 /**
  * The result of an action's execution.

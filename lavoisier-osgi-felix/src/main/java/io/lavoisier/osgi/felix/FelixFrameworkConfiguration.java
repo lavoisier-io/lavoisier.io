@@ -17,7 +17,7 @@
  */
 package io.lavoisier.osgi.felix;
 
-import io.lavoisier.api.Channel;
+import io.lavoisier.channel.api.Channel;
 import org.apache.felix.fileinstall.internal.DirectoryWatcher;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.util.FelixConstants;

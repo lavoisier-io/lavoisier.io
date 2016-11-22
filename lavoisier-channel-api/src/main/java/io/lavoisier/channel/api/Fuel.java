@@ -16,14 +16,11 @@
  * limitations under the License.
  */
 
-package io.lavoisier.api;
-
-import io.lavoisier.api.model.trigger.TriggerExecutionParameters;
-import io.lavoisier.api.model.trigger.TriggerExecutionResults;
+package io.lavoisier.channel.api;
 
 /**
- * A trigger is an external event watched by a channel.
+ * A fuel is a data provider to a reaction.
  */
-public interface Trigger {
-    TriggerExecutionResults execute(TriggerExecutionParameters params);
+public interface Fuel {
+    FuelData getData(FuelDataParameters params);
 }

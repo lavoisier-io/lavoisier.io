@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package io.lavoisier.api.model.trigger;
+package io.lavoisier.channel.api;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,22 +25,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The results of a trigger's execution
+ * The results of a spark's execute
  *
- * It consists of the output of the execution. The output is a list of event output. It may be empty.
- * Each event output is a map of variable name / value.
+ * It consists of the output of the execute.
  *
- * The cursor is a way for the trigger to know where it stopped last time it was checked. The cursor is persisted
- * by the application, and passed to the next trigger's execution.
+ * The output is a list of spark outputs. It may be empty.
+ * Each output is a map of variable name / value.
+ *
+ * The cursor is a way for the spark to know where it stopped last time it was checked. The cursor is persisted
+ * by the application, and passed to the next spark execution.
  *
  */
-public final class TriggerExecutionResults {
+public final class SparkExecutionResults {
 
-    private List<Map<String, String>> output = new ArrayList<>();
+    private List<Map<String, Object>> output = new ArrayList<>();
 
     private Serializable cursor;
 
-    public List<Map<String, String>> getOutput() {
+    public List<Map<String, Object>> getOutput() {
         return output;
     }
 
@@ -52,11 +54,11 @@ public final class TriggerExecutionResults {
         this.cursor = cursor;
     }
 
-    public boolean addAll(Collection<? extends Map<String, String>> c) {
+    public boolean addAll(Collection<? extends Map<String, Object>> c) {
         return output.addAll(c);
     }
 
-    public boolean add(Map<String, String> stringStringMap) {
+    public boolean add(Map<String, Object> stringStringMap) {
         return output.add(stringStringMap);
     }
 

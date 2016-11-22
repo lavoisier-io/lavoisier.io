@@ -18,7 +18,7 @@
 
 package io.lavoisier.osgi.listeners.impl;
 
-import io.lavoisier.api.Channel;
+import io.lavoisier.channel.api.Channel;
 import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
@@ -46,7 +46,7 @@ public class ChannelRegistry implements SelfRegisteringServiceListener {
         this.bundleContext = context;
         // Registering this ServiceListener
         try {
-            context.addServiceListener(this, "(objectClass=io.lavoisier.api.Channel)");
+            context.addServiceListener(this, "(objectClass=io.lavoisier.channel.api.Channel)");
         } catch (InvalidSyntaxException e) {
             logger.error("Error while registering channel service listener", e);
             throw new RuntimeException(e);

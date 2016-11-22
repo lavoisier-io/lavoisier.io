@@ -16,15 +16,11 @@
  * limitations under the License.
  */
 
-package io.lavoisier.api;
-
-import io.lavoisier.api.model.action.ActionExecutionParameters;
-import io.lavoisier.api.model.action.ActionExecutionResult;
+package io.lavoisier.channel.api;
 
 /**
- * An action is something done in reaction to a trigger.
+ * A spark is an external event watched by a channel, triggering an attempt of a  reaction.
  */
-public interface Action {
-
-    ActionExecutionResult execute(ActionExecutionParameters params);
+public interface Spark {
+    SparkExecutionResults execute(SparkExecutionParameters params);
 }

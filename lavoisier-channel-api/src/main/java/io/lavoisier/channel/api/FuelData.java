@@ -16,18 +16,14 @@
  * limitations under the License.
  */
 
-package io.lavoisier.api;
+package io.lavoisier.channel.api;
 
-import java.io.InputStream;
+import java.util.HashMap;
 
 /**
- * An channel is a collection of Actions and Triggers related to a particular service.
+ * The data provided by a Fuel.
+ *
+ * This is a simple Map<String, Object> of KV output of the fuel.
+ *
  */
-public interface Channel {
-
-    /**
-     * @return the inputstream of the xml descriptor of this channel.
-     */
-    InputStream getDescriptor();
-
-}
+public class FuelData extends HashMap<String, Object> {}

@@ -1,0 +1,9 @@
+apply plugin: 'osgi'
+
+jar {
+  baseName 'lavoisier-channel-api'
+  manifest {
+    symbolicName 'io.lavoisier.channel-api'
+    instruction 'Export-Package', 'io.lavoisier.channel.api'
+  }
+}
