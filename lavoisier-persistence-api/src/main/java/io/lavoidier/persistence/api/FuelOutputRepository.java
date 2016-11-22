@@ -18,11 +18,10 @@
 
 package io.lavoidier.persistence.api;
 
-import java.util.UUID;
-
 import org.springframework.data.repository.CrudRepository;
 
-import io.lavoisier.model.channel.ChannelActivation;
+import io.lavoisier.model.fuel.FuelOutput;
+import io.lavoisier.model.fuel.pk.FuelParamPk;
 
-public interface ChannelActivationRepository extends CrudRepository<ChannelActivation, UUID> {
+public interface FuelOutputRepository extends CrudRepository<FuelOutput, FuelParamPk> {
 }

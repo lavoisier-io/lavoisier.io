@@ -18,10 +18,11 @@
 
 package io.lavoidier.persistence.api;
 
-import io.lavoisier.model.reaction.Reaction;
+import java.util.UUID;
+
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.UUID;
+import io.lavoisier.model.reaction.Reaction;
 
 public interface ReactionRepository extends CrudRepository<Reaction, UUID> {
 }

@@ -18,10 +18,9 @@
 
 package io.lavoidier.persistence.api;
 
-import io.lavoisier.model.channel.Channel;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.UUID;
+import io.lavoisier.model.channel.Channel;
 
 public interface ChannelRepository extends CrudRepository<Channel, String> {
 }

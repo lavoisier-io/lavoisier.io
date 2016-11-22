@@ -18,10 +18,11 @@
 
 package io.lavoidier.persistence.api;
 
-import io.lavoisier.model.account.User;
+import java.util.UUID;
+
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.UUID;
+import io.lavoisier.model.account.User;
 
 public interface UserRepository extends CrudRepository<User, UUID> {
 }

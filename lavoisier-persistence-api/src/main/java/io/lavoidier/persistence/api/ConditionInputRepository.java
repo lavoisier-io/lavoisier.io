@@ -18,11 +18,10 @@
 
 package io.lavoidier.persistence.api;
 
-import java.util.UUID;
-
 import org.springframework.data.repository.CrudRepository;
 
-import io.lavoisier.model.channel.ChannelActivation;
+import io.lavoisier.model.condition.ConditionInput;
+import io.lavoisier.model.condition.pk.ConditionInputPk;
 
-public interface ChannelActivationRepository extends CrudRepository<ChannelActivation, UUID> {
+public interface ConditionInputRepository extends CrudRepository<ConditionInput, ConditionInputPk> {
 }

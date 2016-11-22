@@ -18,10 +18,11 @@
 
 package io.lavoidier.persistence.api;
 
-import io.lavoisier.model.reaction.ReactionLog;
+import java.util.UUID;
+
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.UUID;
+import io.lavoisier.model.reaction.ReactionLog;
 
 public interface ReactionLogRepository extends CrudRepository<ReactionLog, UUID> {
 }
