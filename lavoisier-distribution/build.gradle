@@ -15,6 +15,7 @@ dependencies {
     exclude(module: 'org.osgi.core')
     exclude(module: 'org.osgi.compendium')
   }
+  systemBundle project(':lavoisier-channel-api')
 }
 
 distributions {
