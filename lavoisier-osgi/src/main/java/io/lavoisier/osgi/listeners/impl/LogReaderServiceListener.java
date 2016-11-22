@@ -18,7 +18,7 @@
 package io.lavoisier.osgi.listeners.impl;
 
 import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
-import io.lavoisier.osgi.logging.Slf4jLoggingAdaptor;
+import io.lavoisier.osgi.logging.Slf4jOSGiLoggingAdaptor;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
@@ -39,10 +39,10 @@ public class LogReaderServiceListener implements SelfRegisteringServiceListener{
 
     private LinkedList<LogReaderService> readers = new LinkedList<LogReaderService>();
 
-    private Slf4jLoggingAdaptor adaptor;
+    private Slf4jOSGiLoggingAdaptor adaptor;
 
     @Inject
-    public LogReaderServiceListener(Slf4jLoggingAdaptor adaptor) {
+    public LogReaderServiceListener(Slf4jOSGiLoggingAdaptor adaptor) {
         this.adaptor = adaptor;
     }
 
@@ -58,7 +58,7 @@ public class LogReaderServiceListener implements SelfRegisteringServiceListener{
             throw new RuntimeException(e);
         }
 
-        // Register the Slf4jLoggingAdaptor to all the LogReaderService objects available
+        // Register the Slf4jOSGiLoggingAdaptor to all the LogReaderService objects available
         ServiceReference[] refs;
         try {
             refs = context.getServiceReferences(LogReaderService.class.getName(), null);

@@ -29,11 +29,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The Slf4jLoggingAdaptor converts the LogEntry objects it receives into calls to the
+ * The Slf4jOSGiLoggingAdaptor converts the LogEntry objects it receives into calls to the
  * slf4j loggers.
  */
 @Component
-public class Slf4jLoggingAdaptor implements LogListener {
+public class Slf4jOSGiLoggingAdaptor implements LogListener {
 
     private Map<Long, Logger> loggers = new HashMap<Long, Logger>();
 

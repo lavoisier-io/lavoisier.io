@@ -18,6 +18,7 @@
 package io.lavoisier.osgi.felix;
 
 import io.lavoisier.channel.api.Channel;
+import io.lavoisier.osgi.felix.logging.Slf4jFelixLoggingAdaptor;
 import org.apache.felix.fileinstall.internal.DirectoryWatcher;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.util.FelixConstants;
@@ -40,15 +41,16 @@ public class FelixFrameworkConfiguration {
     private Environment env;
 
     @Bean
-    public Framework felix() {
-        return new Felix(config());
+    public Framework felix(Slf4jFelixLoggingAdaptor slf4jFelixLoggingAdaptor) {
+        return new Felix(config(slf4jFelixLoggingAdaptor));
     }
 
-    private Map<String, Object> config() {
+    private Map<String, Object> config(Slf4jFelixLoggingAdaptor slf4jFelixLoggingAdaptor) {
         Map<String, Object> config = new HashMap<>();
         config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
         config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
-        config.put(FelixConstants.LOG_LEVEL_PROP, "3");
+        config.put(FelixConstants.LOG_LEVEL_PROP, env.getProperty("lavoisier.osgi.log-level", "3"));
+        config.put(FelixConstants.LOG_LOGGER_PROP, slf4jFelixLoggingAdaptor);
         config.put(DirectoryWatcher.DIR, env.getProperty("lavoisier.osgi.channel-bundles-directory"));
         return config;
     }
