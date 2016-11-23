@@ -8,6 +8,7 @@ include ':lavoisier-osgi-felix'
 include ':lavoisier-persistence-api'
 include ':lavoisier-persistence-jpa'
 include ':lavoisier-schema'
+include 'lavoisier-core'
 
 project(':lavoisier-app').projectDir = "$rootDir/lavoisier-app" as File
 project(':lavoisier-distribution').projectDir = "$rootDir/lavoisier-distribution" as File
@@ -18,3 +19,4 @@ project(':lavoisier-osgi-felix').projectDir = "$rootDir/lavoisier-osgi-felix" as
 project(':lavoisier-persistence-api').projectDir = "$rootDir/lavoisier-persistence-api" as File
 project(':lavoisier-persistence-jpa').projectDir = "$rootDir/lavoisier-persistence-jpa" as File
 project(':lavoisier-schema').projectDir = "$rootDir/lavoisier-schema" as File
+project(':lavoisier-core').projectDir = "$rootDir/lavoisier-core" as File
