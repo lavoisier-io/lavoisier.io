@@ -19,9 +19,13 @@
 package io.lavoisier.channel.api;
 
 /**
- * The result of an action's execution.
+ * The result of an {@link Action}'s execution.
  *
- * It is just a boolean indicating whether or not it succeeds, and a message in case of failure
+ * Contains:
+ * <ul>
+ * <li>a boolean indicating whether or not it succeeded</li>
+ * <li>a message in case of failure</li>
+ * </ul>
  */
 public final class ActionExecutionResult {
 

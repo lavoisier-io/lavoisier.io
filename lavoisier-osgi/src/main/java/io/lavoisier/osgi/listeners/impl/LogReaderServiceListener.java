@@ -17,8 +17,10 @@
  */
 package io.lavoisier.osgi.listeners.impl;
 
-import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
-import io.lavoisier.osgi.logging.Slf4jOSGiLoggingAdaptor;
+import java.util.LinkedList;
+
+import javax.inject.Inject;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
@@ -28,11 +30,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import java.util.LinkedList;
+import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
+import io.lavoisier.osgi.logging.Slf4jOSGiLoggingAdaptor;
 
+/**
+ * A {@link SelfRegisteringServiceListener} listening to {@link LogReaderService} (un)registration, and registering a
+ * {@link Slf4jOSGiLoggingAdaptor} listener on all of them.
+ */
 @Component
-public class LogReaderServiceListener implements SelfRegisteringServiceListener{
+public class LogReaderServiceListener implements SelfRegisteringServiceListener {
     private static final Logger logger = LoggerFactory.getLogger(ChannelRegistry.class);
 
     private BundleContext context;

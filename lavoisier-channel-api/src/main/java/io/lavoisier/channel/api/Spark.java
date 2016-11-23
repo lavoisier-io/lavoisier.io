@@ -19,8 +19,14 @@
 package io.lavoisier.channel.api;
 
 /**
- * A spark is an external event watched by a channel, triggering an attempt of a  reaction.
+ * A spark is an external event watched by a {@link Channel}, triggering an attempt of a reaction.
  */
 public interface Spark {
+    /**
+     * Execute that Spark and check if there is any reason to trigger a reaction
+     *
+     * @param params the spark execution parameters
+     * @return the execution results
+     */
     SparkExecutionResults execute(SparkExecutionParameters params);
 }

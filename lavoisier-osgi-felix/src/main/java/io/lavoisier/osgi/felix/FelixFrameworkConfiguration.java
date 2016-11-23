@@ -17,8 +17,11 @@
  */
 package io.lavoisier.osgi.felix;
 
-import io.lavoisier.channel.api.Channel;
-import io.lavoisier.osgi.felix.logging.Slf4jFelixLoggingAdaptor;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+
 import org.apache.felix.fileinstall.internal.DirectoryWatcher;
 import org.apache.felix.framework.Felix;
 import org.apache.felix.framework.util.FelixConstants;
@@ -29,10 +32,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 
-import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
+import io.lavoisier.channel.api.Channel;
+import io.lavoisier.osgi.felix.logging.Slf4jFelixLoggingAdaptor;
 
+/**
+ * Felix Framework specific configuration
+ */
 @Configuration
 @Profile("felix")
 public class FelixFrameworkConfiguration {
@@ -47,7 +52,8 @@ public class FelixFrameworkConfiguration {
 
     private Map<String, Object> config(Slf4jFelixLoggingAdaptor slf4jFelixLoggingAdaptor) {
         Map<String, Object> config = new HashMap<>();
-        config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
+        config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA,
+                "org.osgi.service.log;version=1.3.0," + Channel.class.getPackage().getName());
         config.put(Constants.FRAMEWORK_STORAGE_CLEAN, "onFirstInit");
         config.put(FelixConstants.LOG_LEVEL_PROP, env.getProperty("lavoisier.osgi.log-level", "3"));
         config.put(FelixConstants.LOG_LOGGER_PROP, slf4jFelixLoggingAdaptor);

@@ -20,6 +20,14 @@ package io.lavoisier.osgi.listeners;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceListener;
 
+/**
+ * A SelfRegisteringServiceListener is a {@link ServiceListener} that knows how to register itself
+ */
 public interface SelfRegisteringServiceListener extends ServiceListener {
+    /**
+     * Register this {@link ServiceListener} into the {@link BundleContext}.
+     *
+     * @param bundleContext to register in
+     */
     void start(BundleContext bundleContext);
 }

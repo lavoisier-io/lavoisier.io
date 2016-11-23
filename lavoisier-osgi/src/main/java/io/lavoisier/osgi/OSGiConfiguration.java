@@ -17,7 +17,14 @@
  */
 package io.lavoisier.osgi;
 
-import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Inject;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -27,13 +34,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
 
+/**
+ * Basic OSGi configuration, to be kept OSGi-implementation independent.
+ */
 @Configuration
 public class OSGiConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(OSGiConfiguration.class);
@@ -58,12 +63,13 @@ public class OSGiConfiguration {
         }
 
         logger.debug("Registering service listeners...");
-        for(SelfRegisteringServiceListener listener : listeners) {
+        for (SelfRegisteringServiceListener listener : listeners) {
             listener.start(osgiFramework.getBundleContext());
         }
 
         logger.debug("Starting all system bundles...");
-        startAllBundlesInDirectory(env.getProperty("lavoisier.osgi.system-bundles-directory"), osgiFramework.getBundleContext());
+        startAllBundlesInDirectory(env.getProperty("lavoisier.osgi.system-bundles-directory"),
+                osgiFramework.getBundleContext());
 
         logger.info("Starting OSGi Framework...");
         try {
@@ -85,13 +91,13 @@ public class OSGiConfiguration {
         File bundleFolder = new File(directory);
         File[] bundleFilesList = bundleFolder.listFiles((dir, name) -> name.endsWith(".jar"));
 
-        if(bundleFilesList == null) {
-            bundleFilesList = new File[]{};
+        if (bundleFilesList == null) {
+            bundleFilesList = new File[] {};
         }
 
         List<Bundle> installedBundles = new ArrayList<>();
         logger.info("Installing {} bundles in {}.", bundleFilesList.length, directory);
-        for(File bundleFile : bundleFilesList) {
+        for (File bundleFile : bundleFilesList) {
             logger.info("Installing {}", bundleFile.getName());
             try {
                 installedBundles.add(context.installBundle("file:" + directory + bundleFile.getName()));
@@ -100,7 +106,7 @@ public class OSGiConfiguration {
             }
         }
 
-        for(Bundle bundle : installedBundles) {
+        for (Bundle bundle : installedBundles) {
             try {
                 bundle.start();
             } catch (BundleException e) {

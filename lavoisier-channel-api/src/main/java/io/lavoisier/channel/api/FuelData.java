@@ -21,9 +21,10 @@ package io.lavoisier.channel.api;
 import java.util.HashMap;
 
 /**
- * The data provided by a Fuel.
+ * The data provided by a {@link Fuel}.
  *
- * This is a simple Map<String, Object> of KV output of the fuel.
+ * This is a simple Map<String, Object> of K-V output of the {@link Fuel}.
  *
  */
-public class FuelData extends HashMap<String, Object> {}
+public class FuelData extends HashMap<String, Object> {
+}

@@ -18,6 +18,9 @@
 
 package io.lavoisier.osgi.logging;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogListener;
 import org.osgi.service.log.LogService;
@@ -25,12 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * The Slf4jOSGiLoggingAdaptor converts the LogEntry objects it receives into calls to the
- * slf4j loggers.
+ * The Slf4jOSGiLoggingAdaptor converts the {@link LogEntry} objects it receives into calls to the slf4j loggers.
  */
 @Component
 public class Slf4jOSGiLoggingAdaptor implements LogListener {
@@ -38,8 +37,8 @@ public class Slf4jOSGiLoggingAdaptor implements LogListener {
     private Map<Long, Logger> loggers = new HashMap<Long, Logger>();
 
     /**
-     * This methods is called by the LogReaderService, and dispatch them to
-     * a set of Loggers, created with
+     * This methods is called by the {@link org.osgi.service.log.LogReaderService}, and dispatch them to a set of
+     * {@link Logger}s
      */
     @Override
     public void logged(LogEntry log) {
@@ -60,33 +59,33 @@ public class Slf4jOSGiLoggingAdaptor implements LogListener {
         // the message
         if (log.getException() != null) {
             switch (log.getLevel()) {
-                case LogService.LOG_DEBUG:
-                    logger.debug(log.getMessage(), log.getException());
-                    break;
-                case LogService.LOG_INFO:
-                    logger.info(log.getMessage(), log.getException());
-                    break;
-                case LogService.LOG_WARNING:
-                    logger.warn(log.getMessage(), log.getException());
-                    break;
-                case LogService.LOG_ERROR:
-                    logger.error(log.getMessage(), log.getException());
-                    break;
+            case LogService.LOG_DEBUG:
+                logger.debug(log.getMessage(), log.getException());
+                break;
+            case LogService.LOG_INFO:
+                logger.info(log.getMessage(), log.getException());
+                break;
+            case LogService.LOG_WARNING:
+                logger.warn(log.getMessage(), log.getException());
+                break;
+            case LogService.LOG_ERROR:
+                logger.error(log.getMessage(), log.getException());
+                break;
             }
         } else {
             switch (log.getLevel()) {
-                case LogService.LOG_DEBUG:
-                    logger.debug(log.getMessage());
-                    break;
-                case LogService.LOG_INFO:
-                    logger.info(log.getMessage());
-                    break;
-                case LogService.LOG_WARNING:
-                    logger.warn(log.getMessage());
-                    break;
-                case LogService.LOG_ERROR:
-                    logger.error(log.getMessage());
-                    break;
+            case LogService.LOG_DEBUG:
+                logger.debug(log.getMessage());
+                break;
+            case LogService.LOG_INFO:
+                logger.info(log.getMessage());
+                break;
+            case LogService.LOG_WARNING:
+                logger.warn(log.getMessage());
+                break;
+            case LogService.LOG_ERROR:
+                logger.error(log.getMessage());
+                break;
             }
         }
     }

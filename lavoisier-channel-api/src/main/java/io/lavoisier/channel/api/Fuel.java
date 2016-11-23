@@ -19,8 +19,14 @@
 package io.lavoisier.channel.api;
 
 /**
- * A fuel is a data provider to a reaction.
+ * A fuel is providing data to a reaction.
  */
 public interface Fuel {
+    /**
+     * Get the data provided by this fuel, given the fuel parameters
+     *
+     * @param params the parameters of this fuel
+     * @return the data provided by this fuel
+     */
     FuelData getData(FuelDataParameters params);
 }

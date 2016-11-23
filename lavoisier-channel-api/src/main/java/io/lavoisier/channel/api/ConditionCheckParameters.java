@@ -22,13 +22,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Parameters needed for a condition check.
+ * Parameters needed for to check a {@link Condition}
  *
- * It contains :
- *
- * - The condition channel global activation parameters
- * - The condition channel user activation parameters
- * - The condition input
+ * Contains:
+ * <ul>
+ * <li>The condition channel global activation parameters</li>
+ * <li>The condition channel user activation parameters</li>
+ * <li>The condition input</li>
+ * </ul>
  */
 public final class ConditionCheckParameters {
 

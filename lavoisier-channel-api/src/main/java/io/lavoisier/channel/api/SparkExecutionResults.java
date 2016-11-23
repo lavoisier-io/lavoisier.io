@@ -25,15 +25,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The results of a spark's execute
+ * The results of a {@link Spark}'s execution
  *
- * It consists of the output of the execute.
+ * It consists of the output of the execution.
  *
- * The output is a list of spark outputs. It may be empty.
- * Each output is a map of variable name / value.
+ * The output is a list of spark outputs. It may be empty. Each output is a map of variable name / value.
  *
- * The cursor is a way for the spark to know where it stopped last time it was checked. The cursor is persisted
- * by the application, and passed to the next spark execution.
+ * The cursor is a way for the spark to know where it stopped last time it was checked. The cursor is persisted by the
+ * application, and passed to the next spark execution.
  *
  */
 public final class SparkExecutionResults {

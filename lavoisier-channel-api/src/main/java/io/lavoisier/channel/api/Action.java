@@ -18,12 +18,15 @@
 
 package io.lavoisier.channel.api;
 
-import io.lavoisier.channel.api.ActionExecutionParameters;
-import io.lavoisier.channel.api.ActionExecutionResult;
-
 /**
- * An action is something done in reaction to a spark when a condition is met.
+ * An action is something done in reaction to a {@link Spark} when a {@link Condition} is met.
  */
 public interface Action {
+    /**
+     * Execute this action
+     *
+     * @param params the action parameters
+     * @return the result of the action execution
+     */
     ActionExecutionResult execute(ActionExecutionParameters params);
 }

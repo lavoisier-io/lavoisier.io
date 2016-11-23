@@ -22,13 +22,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Parameters needed to get data from a Fuel
+ * Parameters needed to get data from a {@link Fuel}
  *
- * It contains :
- *
- * - The fuel channel global activation parameters
- * - The fuel channel user activation parameters
- * - The fuel input
+ * Contains:
+ * <ul>
+ * <li>The fuel channel global activation parameters</li>
+ * <li>The fuel channel user activation parameters</li>
+ * <li>The fuel input</li>
+ * </ul>
  */
 public final class FuelDataParameters {
 

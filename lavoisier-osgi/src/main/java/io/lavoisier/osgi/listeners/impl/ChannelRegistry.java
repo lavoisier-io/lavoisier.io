@@ -18,8 +18,10 @@
 
 package io.lavoisier.osgi.listeners.impl;
 
-import io.lavoisier.channel.api.Channel;
-import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
+import java.util.Collection;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
@@ -28,10 +30,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import io.lavoisier.channel.api.Channel;
+import io.lavoisier.osgi.listeners.SelfRegisteringServiceListener;
 
+/**
+ * A ChannelRegistry is a {@link SelfRegisteringServiceListener} listening to {@link Channel} (un)registration and
+ * keeping track of available {@link Channel}s in the application.
+ */
 @Component
 public class ChannelRegistry implements SelfRegisteringServiceListener {
 
@@ -57,10 +62,10 @@ public class ChannelRegistry implements SelfRegisteringServiceListener {
         try {
             serviceReferences = context.getServiceReferences(Channel.class, null);
         } catch (InvalidSyntaxException e) {
-            //filter is null, no InvalidSyntaxException should be thrown
+            // filter is null, no InvalidSyntaxException should be thrown
             throw new RuntimeException(e);
         }
-        for(ServiceReference<Channel> serviceReference : serviceReferences) {
+        for (ServiceReference<Channel> serviceReference : serviceReferences) {
             channels.put((String) serviceReference.getProperty("id"), serviceReference);
         }
     }
@@ -68,17 +73,17 @@ public class ChannelRegistry implements SelfRegisteringServiceListener {
     @Override
     public void serviceChanged(ServiceEvent event) {
         switch (event.getType()) {
-            case ServiceEvent.REGISTERED:
-            case ServiceEvent.MODIFIED:
-                // New or modified service, registering it (overwriting the previous one if needed)
-                ServiceReference<Channel> serviceReference = (ServiceReference<Channel>) event.getServiceReference();
-                channels.put((String) serviceReference.getProperty("id"), serviceReference);
-                break;
-            case ServiceEvent.MODIFIED_ENDMATCH:
-            case ServiceEvent.UNREGISTERING:
-                // Removing unregistered services
-                channels.remove(event.getServiceReference().getProperty("id"));
-                break;
+        case ServiceEvent.REGISTERED:
+        case ServiceEvent.MODIFIED:
+            // New or modified service, registering it (overwriting the previous one if needed)
+            ServiceReference<Channel> serviceReference = (ServiceReference<Channel>) event.getServiceReference();
+            channels.put((String) serviceReference.getProperty("id"), serviceReference);
+            break;
+        case ServiceEvent.MODIFIED_ENDMATCH:
+        case ServiceEvent.UNREGISTERING:
+            // Removing unregistered services
+            channels.remove(event.getServiceReference().getProperty("id"));
+            break;
         }
     }
 
@@ -94,16 +99,13 @@ public class ChannelRegistry implements SelfRegisteringServiceListener {
         return channels.keySet();
     }
 
-    /*private io.lavoisier.core.channel.xml.Channel unmarshall(InputStream descriptor) {
-        try {
-            JAXBContext context = JAXBContext.newInstance(io.lavoisier.core.channel.xml.Channel.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            io.lavoisier.core.channel.xml.Channel testChannel = (io.lavoisier.core.channel.xml.Channel) unmarshaller.unmarshal(descriptor);
-
-            return testChannel;
-        } catch (JAXBException e) {
-            logger.warn("Error while reading descriptor", e);
-            return null;
-        }
-    }*/
+    /*
+     * private io.lavoisier.core.channel.xml.Channel unmarshall(InputStream descriptor) { try { JAXBContext context =
+     * JAXBContext.newInstance(io.lavoisier.core.channel.xml.Channel.class); Unmarshaller unmarshaller =
+     * context.createUnmarshaller(); io.lavoisier.core.channel.xml.Channel testChannel =
+     * (io.lavoisier.core.channel.xml.Channel) unmarshaller.unmarshal(descriptor);
+     *
+     * return testChannel; } catch (JAXBException e) { logger.warn("Error while reading descriptor", e); return null; }
+     * }
+     */
 }

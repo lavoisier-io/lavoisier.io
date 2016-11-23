@@ -26,11 +26,12 @@ import java.util.Map;
  * Parameters needed for a spark execution.
  *
  * It contains :
- *
- * - The spark channel global activation parameters
- * - The spark channel user activation parameters
- * - The spark input
- * - The cursor returned by last spark execution. null is passed for the first execution of this spark.
+ * <ul>
+ * <li>The spark channel global activation parameters</li>
+ * <li>The spark channel user activation parameters</li>
+ * <li>The spark input</li>
+ * <li>The cursor returned by last spark execution. null is passed for the first execution of this spark.</li>
+ * </ul>
  */
 public final class SparkExecutionParameters {
 

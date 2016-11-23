@@ -22,13 +22,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Parameters needed for an action execution.
+ * Parameters needed for an {@link Action} execution.
  *
- * It contains :
- *
- * - The action's channel global activation parameters
- * - The action's channel user activation parameters
- * - The action's input
+ * Contains:
+ * <ul>
+ * <li>The action's channel global activation parameters</li>
+ * <li>The action's channel user activation parameters</li>
+ * <li>The action's input</li>
+ * </ul>
  */
 public final class ActionExecutionParameters {
 
