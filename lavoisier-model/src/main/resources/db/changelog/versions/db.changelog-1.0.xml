@@ -305,7 +305,7 @@
         <addUniqueConstraint columnNames="email" constraintName="UC_LAV_USEREMAIL_COL" tableName="lav_user"/>
     </changeSet>
 
-    <changeSet author="jchampemont" id="36">
+    <changeSet author="jchampemont" id="4">
         <addForeignKeyConstraint baseColumnNames="channel_id,spark_id" baseTableName="lav_spark_output" constraintName="FK_spark_output" deferrable="false" initiallyDeferred="false" referencedColumnNames="channel_id,spark_id" referencedTableName="lav_spark"/>
         <addForeignKeyConstraint baseColumnNames="spark_channel_id,spark_id" baseTableName="lav_reaction" constraintName="FK_reaction_spark" deferrable="false" initiallyDeferred="false" referencedColumnNames="channel_id,spark_id" referencedTableName="lav_spark"/>
         <addForeignKeyConstraint baseColumnNames="channel_activation_id" baseTableName="lav_channel_activation_parameter" constraintName="FK_channel_activation_parameter" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="lav_channel_activation"/>
