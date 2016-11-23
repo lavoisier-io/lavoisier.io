@@ -23,7 +23,7 @@ task jaxb () {
     ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.jaxb.asPath)
     ant.jaxbTargetDir = jaxbTargetDir
 
-    ant.xjc(destdir: '${jaxbTargetDir}', package: 'io.lavoisier.core.channel.xml', header: false, extension: true) {
+    ant.xjc(destdir: '${jaxbTargetDir}', package: 'io.lavoisier.core.channel.xml', header: false, extension: true, encoding: 'UTF-8') {
       schema(dir: 'src/main/resources/', includes: "*.xsd")
       classpath(path: configurations.xjc.asPath)
       arg(line: "-Xxew:instantiate lazy")
