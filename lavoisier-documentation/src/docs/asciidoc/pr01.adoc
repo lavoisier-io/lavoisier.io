@@ -1,0 +1,55 @@
+[[preface]]
+
+[preface]
+== Preface
+
+Nowadays, everything is connected: you and your friends/followers, your smart-phone, your TV, your fridge, your living
+room light bulbs, etc. But nothing really connect all this together. What if you want your living room light bulbs to
+dim when you turn on your TV ; or what if you want your friends on Facebook to be see the latests pictures you took and
+uploaded to Twitter, or your own photo-library. Lavoisier tries to bridge this gap.
+
+=== Core concepts
+
+Lavoisier introduces several core concepts. It's very important to understand those concepts in order to understand all
+the full power of Lavoisier.
+
+==== Channels
+
+Channels are the basic building blocks of Lavoisier. A channel is an external service. For example, all of the followings
+could be channels:
+
+- Facebook
+- Twitter
+- Instagram
+- Email
+- Dropbox
+- A RSS Feed
+- Hue light bulb
+
+==== Sparks, Conditions, Fuel and Actions
+
+Each channel may define Sparks, Conditions, Fuel and Actions.
+
+A Spark is an external event happening on a Channel. For example, your favorite friend posts a new Tweet ; you send an
+email to a predefined email address ; a new entry is detected in a RSS Feed.
+
+A Condition on a Channel can be checked at any time, and is whether true or false. For example, your Hue light bulb is
+turned on ; your latest Tweet contains the hashtag Lavoisier ; last time you posted an image on Instagram was more than
+7 days ago.
+
+Fuel is data that can be fetched from a Channel. For example, your latest Instagram picture ; the last email you received
+ ; the latest tweet of Justin Bieber.
+
+Actions are things that can be performed on a Channel. For example, send a Tweet ; upload a file to Dropbox ; turn on
+your Hue light bulb.
+
+==== Reactions
+
+A reaction is the association of a Spark, a Condition, Fuel and an action. You should start realising endless reactions
+allowed by the Reaction concept. For example, one can imagine:
+
+- When Justin Bieber posts a tweet and if the time of the day is before 10pm, blink all my light bulbs.
+- When I post a tweet and if the last time I posted an image on Instagram is more than 2 days ago, use my latest picture
+posted on Twitter to post it on Instagram.
+- When I post a tweet and if it contains "I'm home", turn on all my light bulbs.
+- When the time of the day is later after 11pm, turn off all lights.

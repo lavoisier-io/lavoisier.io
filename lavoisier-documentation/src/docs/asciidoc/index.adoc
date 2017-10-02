@@ -1,0 +1,13 @@
+= Lavoisier.io reference guide
+Jean Champémont
+:doctype: book
+:revdate: {docdate}
+:sectanchors:
+:xrefstyle: full
+:anchor:
+:toc: left
+:toclevels: 3
+:docinfodir: {docinfodir}
+:docinfo:
+
+include::pr01.adoc[]
