@@ -13,25 +13,25 @@ ext {
 
           querydslJpa                   : "com.querydsl:querydsl-jpa:4.1.4",
           querydslApt                   : "com.querydsl:querydsl-apt:4.1.4",
-          querydslGradlePlugin          : "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.7",
+          querydslGradlePlugin          : "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.8",
 
-          liquibase                     : "org.liquibase:liquibase-core:3.5.1",
+          liquibase                     : "org.liquibase:liquibase-core:3.5.3",
           liquibaseHibernate            : "org.liquibase.ext:liquibase-hibernate5:3.6",
-          liquibaseGradlePlugin         : "org.liquibase:liquibase-gradle-plugin:1.2.1",
+          liquibaseGradlePlugin         : "org.liquibase:liquibase-gradle-plugin:1.2.4",
 
-          postgresql                    :"org.postgresql:postgresql:9.4.1211",
+          postgresql                    :"org.postgresql:postgresql:9.4.1212",
 
           javaxInject                   : "javax.inject:javax.inject:1",
 
-          slf4jApi                      : "org.slf4j:slf4j-api:1.7.21",
+          slf4jApi                      : "org.slf4j:slf4j-api:1.7.25",
 
           osgiCompendium                : "org.osgi:org.osgi.compendium:${osgiVersion}",
           osgiCore                      : "org.osgi:org.osgi.core:${osgiVersion}",
 
-          felixFramework                : "org.apache.felix:org.apache.felix.framework:5.6.1",
+          felixFramework                : "org.apache.felix:org.apache.felix.framework:5.6.8",
           felixLog                      : "org.apache.felix:org.apache.felix.log:1.0.1",
-          felixFileInstall              : "org.apache.felix:org.apache.felix.fileinstall:3.5.6",
+          felixFileInstall              : "org.apache.felix:org.apache.felix.fileinstall:3.6.2",
 
-          lombok                        : "org.projectlombok:lombok:1.16.10"
+          lombok                        : "org.projectlombok:lombok:1.16.18"
   ]
 }
