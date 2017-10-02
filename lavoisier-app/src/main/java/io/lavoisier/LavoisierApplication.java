@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Lavoisier.io
+ * Copyright (C) 2016, 2017 Lavoisier.io
  *
  * This file is part of the Lavoisier.io project.
  *
@@ -20,12 +20,11 @@ package io.lavoisier;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@ComponentScan
-@EnableAutoConfiguration
+@SpringBootApplication
 public class LavoisierApplication {
 
     public static void main(String[] args) {
