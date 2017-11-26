@@ -1,10 +1,10 @@
 dependencies {
-  compile project(':lavoisier-model')
-  compile project(':lavoisier-persistence-api')
+    compile project(':lavoisier-model')
+    compile project(':lavoisier-persistence-api')
 
-  compile lavoisierDependencies.springBootStarterDataJpa
-  compile lavoisierDependencies.springContext
+    compile library.spring.boot.starter.data.jpa
+    compile library.spring.context
 
-  compile lavoisierDependencies.javaxInject
-  compile lavoisierDependencies.querydslJpa
+    compile library.javax.inject
+    compile library.querydsl.jpa
 }

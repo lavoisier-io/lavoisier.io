@@ -1,9 +1,9 @@
 dependencies {
-  compile project(':lavoisier-model')
-  compile project(':lavoisier-persistence-api')
-  compile project(':lavoisier-persistence-jpa')
+    compile project(':lavoisier-model')
+    compile project(':lavoisier-persistence-api')
+    compile project(':lavoisier-persistence-jpa')
 
-  compile(lavoisierDependencies.springContext) {
-    exclude(module: 'commons-logging')
-  }
+    compile(library.spring.context) {
+        exclude(module: 'commons-logging')
+    }
 }

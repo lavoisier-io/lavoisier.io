@@ -1,38 +1,38 @@
 configurations {
-  jaxb
-  xjc
+    jaxb
+    xjc
 }
 
 dependencies {
-  jaxb 'com.sun.xml.bind:jaxb-xjc:2.2.11'
-  jaxb 'com.sun.xml.bind:jaxb-core:2.2.11'
-  jaxb 'com.sun.xml.bind:jaxb-impl:2.2.11'
-  jaxb 'javax.xml.bind:jaxb-api:2.2.11'
+    jaxb 'com.sun.xml.bind:jaxb-xjc:2.2.11'
+    jaxb 'com.sun.xml.bind:jaxb-core:2.2.11'
+    jaxb 'com.sun.xml.bind:jaxb-impl:2.2.11'
+    jaxb 'javax.xml.bind:jaxb-api:2.2.11'
 
-  xjc 'com.github.jaxb-xew-plugin:jaxb-xew-plugin:1.8'
+    xjc 'com.github.jaxb-xew-plugin:jaxb-xew-plugin:1.8'
 
-  testCompile group: 'junit', name: 'junit'
-  testCompile group: 'org.assertj', name: 'assertj-core'
+    testCompile group: 'junit', name: 'junit'
+    testCompile group: 'org.assertj', name: 'assertj-core'
 }
 
-task jaxb () {
-  def jaxbTargetDir = file("${buildDir}/generated-sources")
+task jaxb() {
+    def jaxbTargetDir = file("${buildDir}/generated-sources")
 
-  doLast {
-    jaxbTargetDir.mkdirs()
-    ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.jaxb.asPath)
-    ant.jaxbTargetDir = jaxbTargetDir
+    doLast {
+        jaxbTargetDir.mkdirs()
+        ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.jaxb.asPath)
+        ant.jaxbTargetDir = jaxbTargetDir
 
-    ant.xjc(destdir: '${jaxbTargetDir}', package: 'io.lavoisier.core.channel.xml', header: false, extension: true, encoding: 'UTF-8') {
-      schema(dir: 'src/main/resources/', includes: "*.xsd")
-      classpath(path: configurations.xjc.asPath)
-      arg(line: "-Xxew:instantiate lazy")
-      arg(value: "-Xxew")
+        ant.xjc(destdir: '${jaxbTargetDir}', package: 'io.lavoisier.core.channel.xml', header: false, extension: true, encoding: 'UTF-8') {
+            schema(dir: 'src/main/resources/', includes: "*.xsd")
+            classpath(path: configurations.xjc.asPath)
+            arg(line: "-Xxew:instantiate lazy")
+            arg(value: "-Xxew")
+        }
     }
-  }
 }
 compileJava {
-  dependsOn jaxb
-  source "${buildDir}/generated-sources"
+    dependsOn jaxb
+    source "${buildDir}/generated-sources"
 }
 sourceSets.main.java.srcDir new File(buildDir, "generated-sources")

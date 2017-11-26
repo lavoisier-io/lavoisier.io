@@ -1,5 +1,5 @@
 dependencies {
-  compile project(':lavoisier-model')
+    compile project(':lavoisier-model')
 
-  compile lavoisierDependencies.springBootStarterDataJpa
+    compile library.spring.boot.starter.data.jpa
 }

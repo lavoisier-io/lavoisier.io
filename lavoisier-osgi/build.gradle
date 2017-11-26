@@ -1,13 +1,13 @@
 dependencies {
-  compile project(':lavoisier-schema')
-  compile project(':lavoisier-channel-api')
+    compile project(':lavoisier-schema')
+    compile project(':lavoisier-channel-api')
 
-  compile(lavoisierDependencies.springContext) {
-    exclude(module: 'commons-logging')
-  }
-  compile lavoisierDependencies.osgiCompendium
-  compile lavoisierDependencies.osgiCore
+    compile(library.spring.context) {
+        exclude(module: 'commons-logging')
+    }
+    compile library.osgi.compendium
+    compile library.osgi.core
 
-  compile lavoisierDependencies.javaxInject
-  compile lavoisierDependencies.slf4jApi
+    compile library.javax.inject
+    compile library.slf4j.api
 }

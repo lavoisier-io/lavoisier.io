@@ -1,12 +1,12 @@
 buildscript {
-  dependencies {
-    classpath lavoisierDependencies.liquibaseGradlePlugin
-    classpath lavoisierDependencies.liquibaseHibernate
-    classpath lavoisierDependencies.springBootStarterDataJpa
-    classpath lavoisierDependencies.postgresql
-    classpath lavoisierDependencies.querydslGradlePlugin
-    classpath files('build/classes/main/')
-  }
+    dependencies {
+        classpath library.liquibase.gradle.plugin
+        classpath library.liquibase.hibernate
+        classpath library.spring.boot.starter.data.jpa
+        classpath library.postgresql
+        classpath library.querydsl.gradle.plugin
+        classpath files('build/classes/main/')
+    }
 }
 
 apply plugin: 'org.liquibase.gradle'
@@ -15,41 +15,42 @@ apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 apply from: 'database.gradle'
 
 liquibase {
-  activities {
-    main {
-      changeLogFile projectDir.toString() + '/src/main/resources/db/changelog/db.changelog-master.xml'
-      url database.url
-      username database.username
-      password database.password
-      referenceDriver 'liquibase.ext.hibernate.database.connection.HibernateDriver'
-      referenceUrl 'hibernate:spring:io.lavoisier.model?dialect=org.hibernate.dialect.PostgreSQL9Dialect'
+    activities {
+        main {
+            changeLogFile projectDir.toString() + '/src/main/resources/db/changelog/db.changelog-master.xml'
+            url database.url
+            username database.username
+            password database.password
+            referenceDriver 'liquibase.ext.hibernate.database.connection.HibernateDriver'
+            referenceUrl 'hibernate:spring:io.lavoisier.model?dialect=org.hibernate.dialect.PostgreSQL9Dialect'
+        }
     }
-  }
-  runList = 'main'
+    runList = 'main'
 }
 
+def querydslApt = library.querydsl.apt
 querydsl {
-  library lavoisierDependencies.querydslApt
-  querydslSourcesDir "${buildDir}/generated-sources"
-  jpa true
+    library querydslApt
+    querydslSourcesDir "${buildDir}/generated-sources"
+    jpa true
 }
 
 dependencies {
-    compile lavoisierDependencies.springBootStarterDataJpa
-    compile lavoisierDependencies.querydslJpa
-    compile lavoisierDependencies.liquibase
+    compile library.spring.boot.starter.data.jpa
+    compile library.querydsl.jpa
+    compile library.liquibase.core
 
-    compile lavoisierDependencies.lombok
+    compile library.lombok
 
-    runtime lavoisierDependencies.postgresql
+    runtime library.postgresql
 }
 
 // The following is a work around to make QueryDSL plugin works with Lombok
 // See: https://github.com/ewerk/gradle-plugins/issues/59
 project.afterEvaluate {
-  project.tasks.compileQuerydsl.options.compilerArgs = [
-    "-proc:only",
-    "-processor", project.querydsl.processors() +
-      ',lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
-  ]
+    project.tasks.compileQuerydsl.options.compilerArgs = [
+            "-proc:only",
+            "-processor", project.querydsl.processors() +
+                    ',lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
+    ]
 }
